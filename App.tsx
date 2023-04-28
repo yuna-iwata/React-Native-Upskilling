@@ -1,31 +1,18 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import MapView from 'react-native-maps';
+import CreatePixelArt from './views/CreatePixelArt';
 
-function HomeScreen({navigation}) {
+function HomeScreen({navigation, route}) {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Home Screen</Text>
-      <Button title="Go to Maps" onPress={() => navigation.navigate('Map')} />
-    </View>
-  );
-}
-
-function MapScreen() {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Map Screen</Text>
-      <MapView
-        style={{width: 500, height: 500}}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+      <Button
+        title="Go to Create Pixel Art"
+        onPress={() => navigation.navigate('Create Pixel Art')}
       />
+      <Text style={{margin: 10}}>Chosen Colour: {route.params?.color}</Text>
     </View>
   );
 }
@@ -41,7 +28,7 @@ function App() {
           component={HomeScreen}
           options={{title: 'Overview'}}
         />
-        <Stack.Screen name="Map" component={MapScreen} />
+        <Stack.Screen name="Create Pixel Art" component={CreatePixelArt} />
       </Stack.Navigator>
     </NavigationContainer>
   );
