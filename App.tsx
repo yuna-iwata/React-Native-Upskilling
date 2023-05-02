@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import CreatePixelArt from './views/CreatePixelArtStack/CreatePixelArt';
 import HomeScreen from './views/HomeScreen';
+import ProfileScreen from './views/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,6 +28,17 @@ function App() {
           <Tab.Screen
             name="Create"
             component={CreatePixelArt}
+            options={{
+              headerStyle: {
+                backgroundColor: 'black',
+              },
+              headerTintColor: 'white', // <-- set the text color to white
+              tabBarStyle: {backgroundColor: 'black'},
+            }}
+          />
+          <Tab.Screen
+            name="Profile"
+            component={ProfileScreen}
             options={{
               headerStyle: {
                 backgroundColor: 'black',
