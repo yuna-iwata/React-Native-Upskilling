@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, TouchableWithoutFeedback} from 'react-native';
+import {GestureDetector, Gesture} from 'react-native-gesture-handler';
 
 function Pixel({width}) {
   const [pixelColor, setPixelColor] = useState('black');
@@ -23,9 +24,19 @@ function Pixel({width}) {
 }
 
 export default function DrawingPanel() {
-  const gridSize = 15;
+  const panGesture = Gesture.Pan()
+    .onStart(() => {
+      console.log('start');
+    })
+    .onUpdate(e => {
+      console.log(e);
+    })
+    .onEnd(() => {
+      console.log('end');
+    });
+
+  const gridSize = 5;
   const width = (1 / gridSize) * 100;
-  console.log(width);
 
   const rows = [];
 
@@ -48,15 +59,17 @@ export default function DrawingPanel() {
     );
   }
   return (
-    <View
-      style={{
-        aspectRatio: 1,
-        width: '100%',
-        borderWidth: 2,
-        borderColor: '#222222',
-        backgroundColor: 'black',
-      }}>
-      {rows}
-    </View>
+    <GestureDetector gesture={panGesture}>
+      <View
+        style={{
+          aspectRatio: 1,
+          width: '100%',
+          borderWidth: 2,
+          borderColor: '#222222',
+          backgroundColor: 'black',
+        }}>
+        {rows}
+      </View>
+    </GestureDetector>
   );
 }
