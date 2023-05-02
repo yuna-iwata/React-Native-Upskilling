@@ -1,28 +1,39 @@
 import React, {useState} from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, TouchableWithoutFeedback} from 'react-native';
 
-function Pixel() {
+function Pixel({width}) {
+  const [pixelColor, setPixelColor] = useState('black');
+  function applyColor() {
+    setPixelColor('#fff');
+    console.log('clicked');
+  }
+
   return (
-    <View
-      style={{
-        width: '10%',
-        borderWidth: 0.25,
-        borderColor: '#404040',
-      }}></View>
+    <TouchableWithoutFeedback delayPressOut={0} onPress={applyColor}>
+      <View
+        style={{
+          width: `${width}%`,
+          borderWidth: 0.25,
+          borderColor: '#404040',
+          backgroundColor: pixelColor,
+        }}
+      />
+    </TouchableWithoutFeedback>
   );
 }
 
 export default function DrawingPanel() {
-  const numRows = 10; // Change this value to adjust the number of rows
-  const numCols = 10; // Change this value to adjust the number of columns
+  const gridSize = 15;
+  const width = (1 / gridSize) * 100;
+  console.log(width);
 
   const rows = [];
 
-  for (let i = 0; i < numRows; i++) {
+  for (let i = 0; i < gridSize; i++) {
     const pixels = [];
 
-    for (let j = 0; j < numCols; j++) {
-      pixels.push(<Pixel key={`${i}-${j}`} />);
+    for (let j = 0; j < gridSize; j++) {
+      pixels.push(<Pixel width={width} key={`${i}-${j}`} />);
     }
 
     rows.push(

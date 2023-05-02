@@ -6,7 +6,7 @@ export default function CreatePixelArt() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#222222',
+      backgroundColor: 'black',
     },
   });
 
