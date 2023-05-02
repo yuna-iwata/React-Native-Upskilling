@@ -1,9 +1,14 @@
-import React, {useState} from 'react';
-import {View, TouchableWithoutFeedback} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, TouchableWithoutFeedback, Dimensions} from 'react-native';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
 
-function Pixel({width}) {
-  const [pixelColor, setPixelColor] = useState('black');
+function Pixel({width, touched}) {
+  const [pixelColor, setPixelColor] = useState(touched ? '#fff' : 'black');
+
+  useEffect(() => {
+    setPixelColor(touched ? '#fff' : 'black');
+  }, [touched]);
+
   function applyColor() {
     setPixelColor('#fff');
     console.log('clicked');
@@ -13,7 +18,7 @@ function Pixel({width}) {
     <TouchableWithoutFeedback delayPressOut={0} onPress={applyColor}>
       <View
         style={{
-          width: `${width}%`,
+          width: width,
           borderWidth: 0.25,
           borderColor: '#404040',
           backgroundColor: pixelColor,
@@ -23,28 +28,43 @@ function Pixel({width}) {
   );
 }
 
-export default function DrawingPanel() {
+export default function DrawingPanel({touchedPixels, setTouchedPixels}) {
+  const windowWidth = Dimensions.get('window').width;
+  const gridSize = 10;
+  const pixelWidth = windowWidth / gridSize;
   const panGesture = Gesture.Pan()
     .onStart(() => {
       console.log('start');
     })
     .onUpdate(e => {
-      console.log(e);
+      const xPos = e.x;
+      const yPos = e.y;
+      const col = Math.floor(xPos / pixelWidth);
+      const row = Math.floor(yPos / pixelWidth);
+      const newPixel = [row, col];
+
+      if (!touchedPixels.some(p => p[0] === row && p[1] === col)) {
+        setTouchedPixels(prev => [...prev, newPixel]);
+      }
     })
     .onEnd(() => {
       console.log('end');
     });
 
-  const gridSize = 5;
-  const width = (1 / gridSize) * 100;
-
   const rows = [];
+  console.log(touchedPixels);
 
   for (let i = 0; i < gridSize; i++) {
     const pixels = [];
 
     for (let j = 0; j < gridSize; j++) {
-      pixels.push(<Pixel width={width} key={`${i}-${j}`} />);
+      const touched = touchedPixels.some(
+        elem => elem[0] === i && elem[1] === j,
+      );
+      console.log(touched);
+      pixels.push(
+        <Pixel width={pixelWidth} touched={touched} key={`${i}-${j}`} />,
+      );
     }
 
     rows.push(
@@ -58,6 +78,7 @@ export default function DrawingPanel() {
       </View>,
     );
   }
+
   return (
     <GestureDetector gesture={panGesture}>
       <View
