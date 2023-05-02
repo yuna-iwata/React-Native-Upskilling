@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, TouchableWithoutFeedback, Dimensions} from 'react-native';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
 
-function Pixel({width, touched}) {
+function Pixel({width, touched, index, setTouchedPixels}) {
   const [pixelColor, setPixelColor] = useState(touched ? '#fff' : 'black');
 
   useEffect(() => {
@@ -11,7 +11,7 @@ function Pixel({width, touched}) {
 
   function applyColor() {
     setPixelColor('#fff');
-    console.log('clicked');
+    setTouchedPixels(prev => [...prev, index]);
   }
 
   return (
@@ -30,7 +30,7 @@ function Pixel({width, touched}) {
 
 export default function DrawingPanel({touchedPixels, setTouchedPixels}) {
   const windowWidth = Dimensions.get('window').width;
-  const gridSize = 10;
+  const gridSize = 15;
   const pixelWidth = windowWidth / gridSize;
   const panGesture = Gesture.Pan()
     .onStart(() => {
@@ -61,9 +61,14 @@ export default function DrawingPanel({touchedPixels, setTouchedPixels}) {
       const touched = touchedPixels.some(
         elem => elem[0] === i && elem[1] === j,
       );
-      console.log(touched);
       pixels.push(
-        <Pixel width={pixelWidth} touched={touched} key={`${i}-${j}`} />,
+        <Pixel
+          width={pixelWidth}
+          touched={touched}
+          setTouchedPixels={setTouchedPixels}
+          index={[i, j]}
+          key={`${i}-${j}`}
+        />,
       );
     }
 
