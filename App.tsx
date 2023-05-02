@@ -2,45 +2,40 @@ import React, {useState} from 'react';
 import {View, Text, Button} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import CreatePixelArt from './views/CreatePixelArt';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import CreatePixelArt from './views/CreatePixelArtStack/CreatePixelArt';
+import HomeScreen from './views/HomeScreen';
 
-function HomeScreen({navigation, route}) {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Create Pixel Art"
-        onPress={() => navigation.navigate('Create Pixel Art')}
-      />
-      <Text style={{margin: 10}}>Chosen Colour: {route.params?.color}</Text>
-    </View>
-  );
-}
-
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function App() {
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
+        <Tab.Navigator>
+          <Tab.Screen
             name="Home"
             component={HomeScreen}
-            options={{title: 'Overview'}}
+            options={{
+              headerStyle: {
+                backgroundColor: 'black',
+              },
+              headerTintColor: 'white', // <-- set the text color to white
+              tabBarStyle: {backgroundColor: 'black'},
+            }}
           />
-          <Stack.Screen
-            name="Create Pixel Art"
+          <Tab.Screen
+            name="Create"
             component={CreatePixelArt}
             options={{
               headerStyle: {
                 backgroundColor: 'black',
               },
-              headerTintColor: 'white',
+              headerTintColor: 'white', // <-- set the text color to white
+              tabBarStyle: {backgroundColor: 'black'},
             }}
           />
-        </Stack.Navigator>
+        </Tab.Navigator>
       </NavigationContainer>
     </GestureHandlerRootView>
   );
