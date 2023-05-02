@@ -30,7 +30,16 @@ function App() {
             component={HomeScreen}
             options={{title: 'Overview'}}
           />
-          <Stack.Screen name="Create Pixel Art" component={CreatePixelArt} />
+          <Stack.Screen
+            name="Create Pixel Art"
+            component={CreatePixelArt}
+            options={{
+              headerStyle: {
+                backgroundColor: 'black',
+              },
+              headerTintColor: 'white',
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </GestureHandlerRootView>
