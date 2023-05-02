@@ -6,14 +6,18 @@ export default function CreatePixelArt() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#222222',
+      backgroundColor: 'black',
     },
   });
 
   const [color, setColor] = useState('#ffffff');
+  const [touchedPixels, setTouchedPixels] = useState([]);
   return (
     <View style={[styles.container]}>
-      <DrawingPanel></DrawingPanel>
+      <DrawingPanel
+        touchedPixels={touchedPixels}
+        setTouchedPixels={setTouchedPixels}></DrawingPanel>
+      <Button title="clear" onPress={() => setTouchedPixels([])}></Button>
     </View>
   );
 }
