@@ -22,7 +22,8 @@ function App() {
               headerStyle: {
                 backgroundColor: 'black',
               },
-              headerTintColor: 'white', // <-- set the text color to white
+              headerTintColor: 'white',
+              tabBarShowLabel: false,
               tabBarStyle: {backgroundColor: 'black'},
               tabBarIcon: () => (
                 <Feather name="home" style={{color: 'white', fontSize: 30}} />
@@ -36,7 +37,8 @@ function App() {
               headerStyle: {
                 backgroundColor: 'black',
               },
-              headerTintColor: 'white', // <-- set the text color to white
+              headerTintColor: 'white',
+              tabBarShowLabel: false,
               tabBarStyle: {backgroundColor: 'black'},
             }}
           />
@@ -47,7 +49,8 @@ function App() {
               headerStyle: {
                 backgroundColor: 'black',
               },
-              headerTintColor: 'white', // <-- set the text color to white
+              headerTintColor: 'white',
+              tabBarShowLabel: false,
               tabBarStyle: {backgroundColor: 'black'},
             }}
           />
