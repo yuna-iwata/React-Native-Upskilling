@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import CreatePixelArt from './views/CreatePixelArtStack/CreatePixelArt';
 import HomeScreen from './views/HomeScreen';
 import ProfileScreen from './views/ProfileScreen';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,6 +24,9 @@ function App() {
               },
               headerTintColor: 'white', // <-- set the text color to white
               tabBarStyle: {backgroundColor: 'black'},
+              tabBarIcon: () => (
+                <Feather name="home" style={{color: 'white', fontSize: 30}} />
+              ),
             }}
           />
           <Tab.Screen
