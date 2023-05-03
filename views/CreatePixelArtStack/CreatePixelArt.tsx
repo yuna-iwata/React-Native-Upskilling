@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
-import DrawingPanel from '../components/DrawingPanel';
+import DrawingPanel from '../../components/DrawingPanel';
 
 export default function CreatePixelArt() {
   const styles = StyleSheet.create({
@@ -10,7 +10,6 @@ export default function CreatePixelArt() {
     },
   });
 
-  const [color, setColor] = useState('#ffffff');
   const [touchedPixels, setTouchedPixels] = useState([]);
   return (
     <View style={[styles.container]}>

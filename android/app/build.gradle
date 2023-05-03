@@ -78,6 +78,7 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 /**
  * Private function to get the list of Native Architectures you want to build.
  * This reads the value from reactNativeArchitectures in your gradle.properties
