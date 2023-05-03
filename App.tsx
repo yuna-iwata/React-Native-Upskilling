@@ -7,6 +7,7 @@ import CreatePixelArt from './views/CreatePixelArtStack/CreatePixelArt';
 import HomeScreen from './views/HomeScreen';
 import ProfileScreen from './views/ProfileScreen';
 import Feather from 'react-native-vector-icons/Feather';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,6 +41,12 @@ function App() {
               headerTintColor: 'white',
               tabBarShowLabel: false,
               tabBarStyle: {backgroundColor: 'black'},
+              tabBarIcon: () => (
+                <Octicons
+                  name="diff-added"
+                  style={{color: 'white', fontSize: 30}}
+                />
+              ),
             }}
           />
           <Tab.Screen
