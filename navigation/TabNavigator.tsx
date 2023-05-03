@@ -6,6 +6,7 @@ import CreatePixelArt from '../views/CreatePixelArtStack/CreatePixelArt';
 import ProfileScreen from '../views/ProfileScreen';
 import Feather from 'react-native-vector-icons/Feather';
 import Octicons from 'react-native-vector-icons/Octicons';
+import CreatePixelArtStackNav from '../views/CreatePixelArtStack/CreatePixelArtStackNav';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +30,7 @@ export default function TabNavigator() {
       />
       <Tab.Screen
         name="Create"
-        component={CreatePixelArt}
+        component={CreatePixelArtStackNav}
         options={{
           headerStyle: {
             backgroundColor: 'black',

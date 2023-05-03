@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import DrawingPanel from '../../components/DrawingPanel';
+import Post from '../components/Post';
 
 export default function HomeScreen() {
   const styles = StyleSheet.create({
@@ -15,6 +16,7 @@ export default function HomeScreen() {
   return (
     <View style={[styles.container]}>
       <Text style={{color: 'white'}}>home</Text>
+      <Post />
     </View>
   );
 }
