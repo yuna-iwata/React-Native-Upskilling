@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {View, TouchableWithoutFeedback, Dimensions} from 'react-native';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
+import {create} from 'react-test-renderer';
 
-function Pixel({width, touched, index, setTouchedPixels}) {
+function Pixel({width, height, touched, index, setTouchedPixels}) {
   const [pixelColor, setPixelColor] = useState(touched ? '#fff' : 'black');
 
   useEffect(() => {
@@ -19,6 +20,7 @@ function Pixel({width, touched, index, setTouchedPixels}) {
       <View
         style={{
           width: width,
+          height: height,
           borderWidth: 0.25,
           borderColor: '#404040',
           backgroundColor: pixelColor,
@@ -28,32 +30,14 @@ function Pixel({width, touched, index, setTouchedPixels}) {
   );
 }
 
-export default function DrawingPanel({touchedPixels, setTouchedPixels}) {
-  const windowWidth = Dimensions.get('window').width;
-  const gridSize = 15;
-  const pixelWidth = windowWidth / gridSize;
-  const panGesture = Gesture.Pan()
-    .onStart(() => {
-      console.log('start');
-    })
-    .onUpdate(e => {
-      const xPos = e.x;
-      const yPos = e.y;
-      const col = Math.floor(xPos / pixelWidth);
-      const row = Math.floor(yPos / pixelWidth);
-      const newPixel = [row, col];
-
-      if (!touchedPixels.some(p => p[0] === row && p[1] === col)) {
-        setTouchedPixels(prev => [...prev, newPixel]);
-      }
-    })
-    .onEnd(() => {
-      console.log('end');
-    });
-
+export function createGrid(
+  gridSize,
+  gridWidth,
+  touchedPixels,
+  setTouchedPixels,
+) {
   const rows = [];
-  console.log(touchedPixels);
-
+  const pixelWidth = gridWidth / gridSize;
   for (let i = 0; i < gridSize; i++) {
     const pixels = [];
 
@@ -64,6 +48,7 @@ export default function DrawingPanel({touchedPixels, setTouchedPixels}) {
       pixels.push(
         <Pixel
           width={pixelWidth}
+          height={pixelWidth}
           touched={touched}
           setTouchedPixels={setTouchedPixels}
           index={[i, j]}
@@ -83,6 +68,36 @@ export default function DrawingPanel({touchedPixels, setTouchedPixels}) {
       </View>,
     );
   }
+  return rows;
+}
+
+export default function DrawingPanel({
+  touchedPixels,
+  setTouchedPixels,
+  gridSize,
+}) {
+  const gridWidth = Dimensions.get('window').width;
+  const pixelWidth = gridWidth / gridSize;
+  const panGesture = Gesture.Pan()
+    .onStart(() => {
+      console.log('start');
+    })
+    .onUpdate(e => {
+      const xPos = e.x;
+      const yPos = e.y;
+      const col = Math.floor(xPos / pixelWidth);
+      const row = Math.floor(yPos / pixelWidth);
+      const newPixel = [row, col];
+
+      if (!touchedPixels.some(p => p[0] === row && p[1] === col)) {
+        setTouchedPixels(prev => [...prev, newPixel]);
+      }
+    })
+    .onEnd(() => {
+      console.log('end');
+    });
+
+  const grid = createGrid(gridSize, gridWidth, touchedPixels, setTouchedPixels);
 
   return (
     <GestureDetector gesture={panGesture}>
@@ -90,11 +105,9 @@ export default function DrawingPanel({touchedPixels, setTouchedPixels}) {
         style={{
           aspectRatio: 1,
           width: '100%',
-          borderWidth: 2,
-          borderColor: '#222222',
           backgroundColor: 'black',
         }}>
-        {rows}
+        {grid}
       </View>
     </GestureDetector>
   );
