@@ -1,8 +1,9 @@
 import {View, Text, StyleSheet, Image} from 'react-native';
+import PlaceholderImg from '../data/adventuretime.png';
 
 const styles = StyleSheet.create({
   container: {
-    width: 200,
+    width: 180,
     height: 300,
     backgroundColor: '#1a1a1a',
     borderWidth: 1,
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '70%',
     backgroundColor: 'red',
-    marginBottom: '10%',
+    marginBottom: '5%',
   },
   boldText: {
     color: 'white',
@@ -25,12 +26,20 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Post() {
+export default function Post({username, title, likes, comments}) {
   return (
     <View style={styles.container}>
-      <View style={styles.imageWrapper}></View>
-      <Text style={styles.boldText}>username</Text>
-      <Text style={styles.normalText}>title</Text>
+      <Image style={styles.imageWrapper} source={PlaceholderImg} />
+      <Text style={[styles.boldText]}>{username}</Text>
+      <Text style={[styles.normalText, {fontSize: 12, marginBottom: '2%'}]}>
+        {title}
+      </Text>
+      <Text>
+        <Text style={[styles.boldText, {fontSize: 12}]}>{likes}</Text>
+        <Text style={[styles.normalText, {fontSize: 12}]}> likes</Text>
+        <Text style={[styles.boldText, {fontSize: 12}]}> {comments}</Text>
+        <Text style={[styles.normalText, {fontSize: 12}]}> comments</Text>
+      </Text>
     </View>
   );
 }

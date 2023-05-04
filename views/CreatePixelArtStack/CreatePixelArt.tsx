@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, Button, StyleSheet} from 'react-native';
 import DrawingPanel from '../../components/DrawingPanel';
 
 export default function CreatePixelArt() {
@@ -17,6 +17,7 @@ export default function CreatePixelArt() {
         touchedPixels={touchedPixels}
         setTouchedPixels={setTouchedPixels}></DrawingPanel>
       <Button title="clear" onPress={() => setTouchedPixels([])}></Button>
+      <Button title="next"></Button>
     </View>
   );
 }
