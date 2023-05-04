@@ -11,12 +11,25 @@ export default function CreatePixelArtStackNav() {
       <Stack.Screen
         name="Create"
         component={CreatePixelArt}
-        options={{headerShown: false}}
+        options={{
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+          headerTintColor: 'white',
+          headerTitle: 'Create',
+        }}
       />
       <Stack.Screen
         name="Post"
         component={PostPixelArt}
-        options={{headerShown: false}}
+        options={{
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+
+          headerTintColor: 'white',
+          headerTitle: 'Post', // add this line
+        }}
       />
     </Stack.Navigator>
   );
