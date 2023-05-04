@@ -71,9 +71,12 @@ export function createGrid(
   return rows;
 }
 
-export default function DrawingPanel({touchedPixels, setTouchedPixels}) {
+export default function DrawingPanel({
+  touchedPixels,
+  setTouchedPixels,
+  gridSize,
+}) {
   const gridWidth = Dimensions.get('window').width;
-  const gridSize = 15;
   const pixelWidth = gridWidth / gridSize;
   const panGesture = Gesture.Pan()
     .onStart(() => {

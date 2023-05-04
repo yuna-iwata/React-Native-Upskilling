@@ -17,7 +17,7 @@ function Pixel({width, touched, index, setTouchedPixels}) {
 const gridWidth = 100; //change this to a relative value not abs
 
 export default function PostPixelArt({route}) {
-  const {postData} = route.params;
+  const {postData, gridSize} = route.params;
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -41,7 +41,7 @@ export default function PostPixelArt({route}) {
     },
   });
 
-  const grid = createGrid(15, gridWidth, postData, null);
+  const grid = createGrid(gridSize, gridWidth, postData, null);
   return (
     <View style={[styles.container]}>
       <View style={styles.postContainer}>
