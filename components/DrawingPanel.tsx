@@ -3,7 +3,7 @@ import {View, TouchableWithoutFeedback, Dimensions} from 'react-native';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
 import {create} from 'react-test-renderer';
 
-function Pixel({width, touched, index, setTouchedPixels}) {
+function Pixel({width, height, touched, index, setTouchedPixels}) {
   const [pixelColor, setPixelColor] = useState(touched ? '#fff' : 'black');
 
   useEffect(() => {
@@ -20,6 +20,7 @@ function Pixel({width, touched, index, setTouchedPixels}) {
       <View
         style={{
           width: width,
+          height: height,
           borderWidth: 0.25,
           borderColor: '#404040',
           backgroundColor: pixelColor,
@@ -47,6 +48,7 @@ export function createGrid(
       pixels.push(
         <Pixel
           width={pixelWidth}
+          height={pixelWidth}
           touched={touched}
           setTouchedPixels={setTouchedPixels}
           index={[i, j]}
@@ -100,8 +102,6 @@ export default function DrawingPanel({touchedPixels, setTouchedPixels}) {
         style={{
           aspectRatio: 1,
           width: '100%',
-          borderWidth: 2,
-          borderColor: '#222222',
           backgroundColor: 'black',
         }}>
         {grid}
