@@ -1,7 +1,12 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-function Pixel({width, touched}) {
+interface PixelProps {
+  width: number;
+  touched: boolean;
+}
+
+function Pixel({width, touched}: PixelProps) {
   const [pixelColor, setPixelColor] = useState(touched ? '#fff' : 'black');
   return (
     <View
@@ -15,7 +20,13 @@ function Pixel({width, touched}) {
   );
 }
 
-function createGrid(gridSize, gridWidth, touchedPixels) {
+interface CreateGridProps {
+  gridSize: number;
+  gridWidth: number;
+  touchedPixels: [] | [number, number][];
+}
+
+function createGrid({gridSize, gridWidth, touchedPixels}: CreateGridProps) {
   const rows = [];
   const pixelWidth = gridWidth / gridSize;
   for (let i = 0; i < gridSize; i++) {
@@ -47,7 +58,7 @@ function createGrid(gridSize, gridWidth, touchedPixels) {
 const gridWidth = 100; //change this to a relative value not abs
 
 export default function PostPixelArt({route}) {
-  const {postData, gridSize} = route.params;
+  const {touchedPixels, gridSize} = route.params;
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -71,7 +82,7 @@ export default function PostPixelArt({route}) {
     },
   });
 
-  const grid = createGrid(gridSize, gridWidth, postData);
+  const grid = createGrid({gridSize, gridWidth, touchedPixels});
   return (
     <View style={[styles.container]}>
       <View style={styles.postContainer}>

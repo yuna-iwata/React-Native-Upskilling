@@ -24,7 +24,7 @@ export default function CreatePixelArt({navigation}: any) {
         title="next"
         onPress={() =>
           navigation.navigate('Post', {
-            postData: touchedPixels,
+            touchedPixels: touchedPixels,
             gridSize: gridSize,
           })
         }
