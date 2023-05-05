@@ -1,5 +1,5 @@
 import {createStackNavigator} from '@react-navigation/stack';
-
+import React from 'react';
 import CreatePixelArt from './CreatePixelArt';
 import PostPixelArt from './PostPixelArt';
 

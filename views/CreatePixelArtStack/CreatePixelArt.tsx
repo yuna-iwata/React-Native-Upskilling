@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Button, StyleSheet} from 'react-native';
 import DrawingPanel from '../../components/DrawingPanel';
 
-export default function CreatePixelArt({navigation, route}) {
+export default function CreatePixelArt({navigation}: any) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -11,7 +11,7 @@ export default function CreatePixelArt({navigation, route}) {
   });
 
   const [touchedPixels, setTouchedPixels] = useState([]);
-  const gridSize = 20;
+  const gridSize = 15;
   return (
     <View style={[styles.container]}>
       <DrawingPanel
@@ -19,7 +19,7 @@ export default function CreatePixelArt({navigation, route}) {
         setTouchedPixels={setTouchedPixels}
         gridSize={gridSize}
       />
-      <Button title="clear" onPress={() => setTouchedPixels([])}></Button>
+      <Button title="clear" onPress={() => setTouchedPixels([])} />
       <Button
         title="next"
         onPress={() =>
@@ -27,7 +27,8 @@ export default function CreatePixelArt({navigation, route}) {
             postData: touchedPixels,
             gridSize: gridSize,
           })
-        }></Button>
+        }
+      />
     </View>
   );
 }
