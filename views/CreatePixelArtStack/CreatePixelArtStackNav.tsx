@@ -1,5 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
+import {Button} from 'react-native';
 import CreatePixelArt from './CreatePixelArt';
 import PostPixelArt from './PostPixelArt';
 
@@ -17,6 +18,7 @@ export default function CreatePixelArtStackNav() {
           },
           headerTintColor: 'white',
           headerTitle: 'Create',
+          headerRight: () => <Button title="next" />,
         }}
       />
       <Stack.Screen

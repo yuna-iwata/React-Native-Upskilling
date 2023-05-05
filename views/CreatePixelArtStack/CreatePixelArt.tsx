@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Button, StyleSheet} from 'react-native';
 import DrawingPanel from '../../components/DrawingPanel';
 
@@ -12,6 +12,23 @@ export default function CreatePixelArt({navigation}: any) {
 
   const [touchedPixels, setTouchedPixels] = useState([]);
   const gridSize = 15;
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          onPress={() =>
+            navigation.navigate('Post', {
+              touchedPixels: touchedPixels,
+              gridSize: gridSize,
+            })
+          }
+          title="next"
+        />
+      ),
+    });
+  }, [navigation, touchedPixels]);
+
   return (
     <View style={[styles.container]}>
       <DrawingPanel
@@ -20,15 +37,6 @@ export default function CreatePixelArt({navigation}: any) {
         gridSize={gridSize}
       />
       <Button title="clear" onPress={() => setTouchedPixels([])} />
-      <Button
-        title="next"
-        onPress={() =>
-          navigation.navigate('Post', {
-            touchedPixels: touchedPixels,
-            gridSize: gridSize,
-          })
-        }
-      />
     </View>
   );
 }
