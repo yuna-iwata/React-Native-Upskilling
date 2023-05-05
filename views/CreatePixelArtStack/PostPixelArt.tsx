@@ -1,12 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-interface PixelProps {
-  width: number;
-  touched: boolean;
-}
-
-function Pixel({width, touched}: PixelProps) {
+function Pixel({width, touched}: {width: number; touched: boolean}) {
   const [pixelColor, setPixelColor] = useState(touched ? '#fff' : 'black');
   return (
     <View

@@ -26,7 +26,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Post({username, title, likes, comments}) {
+interface PostProps {
+  username: string;
+  title: string;
+  likes: string;
+  comments: string;
+}
+
+export default function Post({username, title, likes, comments}: PostProps) {
   return (
     <View style={styles.container}>
       <Image style={styles.imageWrapper} source={PlaceholderImg} />

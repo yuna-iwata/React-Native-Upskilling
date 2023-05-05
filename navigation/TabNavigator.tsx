@@ -2,7 +2,6 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '../views/HomeScreenStack/HomeScreen';
-import CreatePixelArt from '../views/CreatePixelArtStack/CreatePixelArt';
 import ProfileScreen from '../views/ProfileScreenStack/ProfileScreen';
 import Feather from 'react-native-vector-icons/Feather';
 import Octicons from 'react-native-vector-icons/Octicons';
