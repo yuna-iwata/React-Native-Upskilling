@@ -2,7 +2,7 @@ import React from 'react';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 
-import TabNavigator from './navigation/TabNavigator';
+import TabNavigator from './src/navigation/TabNavigator';
 
 function App() {
   return (

@@ -1,15 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {View, TouchableWithoutFeedback, Dimensions} from 'react-native';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
+import {TouchedPixels} from '../types';
 
 interface PixelProps {
   width: number;
   height: number;
   touched: boolean;
   index: number[];
-  setTouchedPixels: React.Dispatch<
-    React.SetStateAction<[] | [number, number][]>
-  >;
+  setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
 }
 
 const Pixel: React.FC<PixelProps> = ({
@@ -49,9 +48,7 @@ interface CreateGridProps {
   gridSize: number;
   gridWidth: number;
   touchedPixels: [number, number][];
-  setTouchedPixels: React.Dispatch<
-    React.SetStateAction<[] | [number, number][]>
-  >;
+  setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
 }
 
 function createGrid({

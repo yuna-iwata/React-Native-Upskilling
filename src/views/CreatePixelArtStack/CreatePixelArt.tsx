@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Button, StyleSheet} from 'react-native';
 import DrawingPanel from '../../components/DrawingPanel';
+import {TouchedPixels} from '../../types';
 
 export default function CreatePixelArt({navigation}: any) {
   const styles = StyleSheet.create({
@@ -10,7 +11,7 @@ export default function CreatePixelArt({navigation}: any) {
     },
   });
 
-  const [touchedPixels, setTouchedPixels] = useState([]);
+  const [touchedPixels, setTouchedPixels] = useState<TouchedPixels>([]);
   const gridSize = 15;
 
   useEffect(() => {
