@@ -11,7 +11,8 @@ import PixelBg from '../../data/pixelbg.png';
 import ProfilePic from '../../data/profilepic.png';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import PixelArt from '../../data/images.json';
+import PixelArt from '../../data/feed.json';
+import UserData from '../../data/userData.json';
 import {StaticPixelArt} from '../../components/StaticPixelArt';
 
 export default function ProfileScreen() {
@@ -70,21 +71,39 @@ export default function ProfileScreen() {
 
   const gridWidth = Dimensions.get('window').width / 3; //change this to a relative value not abs
   const gridSize = 15;
+
+  const UsersPixelArt = PixelArt.filter(item => {
+    return item.username === 'ghost';
+  }); //filter out correct users posts
+
+  const UsersData = UserData.filter(item => {
+    return item.username === 'ghost';
+  })[0];
+
   return (
     <View style={styles.container}>
       <Text style={styles.normalText}>profile</Text>
       <Image style={styles.bannerContainer} source={PixelBg} />
       <View style={styles.infoContainer}>
         <Image style={styles.profilePicture} source={ProfilePic} />
-        <Text style={[styles.boldText, {fontSize: 20, marginBottom: '0.5%'}]}>
-          username
+        <Text
+          style={[
+            styles.boldText,
+            {fontSize: 20, marginBottom: '0.5%', marginTop: '2%'},
+          ]}>
+          {UsersData.username}
         </Text>
-        <Text style={styles.greyText}>pronouns</Text>
-        <Text style={[styles.normalText]}>bio</Text>
+        <Text style={styles.greyText}>{UsersData.pronouns}</Text>
+        <Text style={[styles.normalText]}>{UsersData.bio}</Text>
         <Text>
-          <Text style={[styles.boldText, {fontSize: 12}]}>12</Text>
+          <Text style={[styles.boldText, {fontSize: 12}]}>
+            {UsersData.following}
+          </Text>
           <Text style={[styles.normalText, {fontSize: 12}]}> following</Text>
-          <Text style={[styles.boldText, {fontSize: 12}]}> 12</Text>
+          <Text style={[styles.boldText, {fontSize: 12}]}>
+            {' '}
+            {UsersData.followers}
+          </Text>
           <Text style={[styles.normalText, {fontSize: 12}]}> followers</Text>
           <Text style={[styles.boldText, {fontSize: 12}]}> 12</Text>
           <Text style={[styles.normalText, {fontSize: 12}]}> posts</Text>
@@ -99,7 +118,7 @@ export default function ProfileScreen() {
       </View>
       <View style={styles.postContainer}>
         <FlatList
-          data={PixelArt}
+          data={UsersPixelArt}
           numColumns={3}
           renderItem={({item}) => (
             <View style={{width: gridWidth, height: gridWidth}}>

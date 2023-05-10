@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
+import {View, FlatList, StyleSheet} from 'react-native';
 import Post from '../../components/Post';
 import feedData from '../../data/feed.json';
 
@@ -10,7 +10,7 @@ export default function HomeScreen() {
       width: '100%',
       backgroundColor: 'black',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
     },
   });
 
@@ -35,7 +35,6 @@ export default function HomeScreen() {
   }
   return (
     <View style={[styles.container]}>
-      <Text style={{color: 'white'}}>home</Text>
       <FlatList
         data={feedData}
         numColumns={2}

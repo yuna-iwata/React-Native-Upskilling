@@ -3,8 +3,24 @@ import React from 'react';
 import {Button} from 'react-native';
 import CreatePixelArt from './CreatePixelArt';
 import PostPixelArt from './PostPixelArt';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {TouchedPixels} from '../../types';
 
-const Stack = createStackNavigator();
+type CreatePixelArtStackParamList = {
+  Create: undefined;
+  Post: {
+    touchedPixels: TouchedPixels;
+    gridSize: number;
+  };
+};
+
+export type CreatePixelArtProps = NativeStackScreenProps<
+  CreatePixelArtStackParamList,
+  'Create',
+  'Post'
+>;
+
+const Stack = createStackNavigator<CreatePixelArtStackParamList>();
 
 export default function CreatePixelArtStackNav() {
   return (

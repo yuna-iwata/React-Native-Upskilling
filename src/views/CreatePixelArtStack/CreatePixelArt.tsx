@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {View, Button, StyleSheet} from 'react-native';
 import DrawingPanel from '../../components/DrawingPanel';
 import {TouchedPixels} from '../../types';
+import {CreatePixelArtProps} from './CreatePixelArtStackNav';
 
-export default function CreatePixelArt({navigation}: any) {
+export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
