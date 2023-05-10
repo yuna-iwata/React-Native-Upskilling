@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 
 function Pixel({width, touched}: {width: number; touched: boolean}) {
-  const [pixelColor, setPixelColor] = useState(touched ? '#fff' : 'black');
+  const pixelColor = touched ? '#fff' : 'black';
   return (
     <View
       style={{

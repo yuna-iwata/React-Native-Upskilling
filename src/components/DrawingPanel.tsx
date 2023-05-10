@@ -26,7 +26,7 @@ const Pixel: React.FC<PixelProps> = ({
 
   function applyColor() {
     setPixelColor('#fff');
-    setTouchedPixels(prev => [...prev, index] as [] | [number, number][]);
+    setTouchedPixels(prev => [...prev, index] as TouchedPixels);
   }
 
   return (
@@ -47,7 +47,7 @@ const Pixel: React.FC<PixelProps> = ({
 interface CreateGridProps {
   gridSize: number;
   gridWidth: number;
-  touchedPixels: [number, number][];
+  touchedPixels: TouchedPixels;
   setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
 }
 
@@ -92,19 +92,15 @@ function createGrid({
   return rows;
 }
 
-interface DrawingPanelProps {
-  touchedPixels: [number, number][];
-  setTouchedPixels: React.Dispatch<
-    React.SetStateAction<[] | [number, number][]>
-  >;
-  gridSize: number;
-}
-
 export default function DrawingPanel({
   touchedPixels,
   setTouchedPixels,
   gridSize,
-}: DrawingPanelProps) {
+}: {
+  touchedPixels: TouchedPixels;
+  setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
+  gridSize: number;
+}) {
   const gridWidth = Dimensions.get('window').width;
   const pixelWidth = gridWidth / gridSize;
   const panGesture = Gesture.Pan()
@@ -119,9 +115,7 @@ export default function DrawingPanel({
       const newPixel = [row, col];
 
       if (!touchedPixels.some(p => p[0] === row && p[1] === col)) {
-        setTouchedPixels(
-          prev => [...prev, newPixel] as [] | [number, number][],
-        );
+        setTouchedPixels(prev => [...prev, newPixel] as TouchedPixels);
       }
     })
     .onEnd(() => {

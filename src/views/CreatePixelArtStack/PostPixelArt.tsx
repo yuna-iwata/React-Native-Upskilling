@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {createGrid} from '../../components/StaticPixelArt';
 
 const gridWidth = 100; //change this to a relative value not abs
 
-export default function PostPixelArt({route}) {
+export default function PostPixelArt({route}: any) {
   const {touchedPixels, gridSize} = route.params;
   const styles = StyleSheet.create({
     container: {

@@ -21,7 +21,7 @@ export default function HomeScreen() {
     var tier = (Math.log10(Math.abs(number)) / 3) | 0;
 
     // if zero, we don't need a suffix
-    if (tier == 0) return number;
+    if (tier == 0) return number.toString();
 
     // get suffix and determine scale
     var suffix = SI_SYMBOL[tier];
