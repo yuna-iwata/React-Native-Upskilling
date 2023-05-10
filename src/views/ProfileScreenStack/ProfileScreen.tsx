@@ -100,13 +100,15 @@ export default function ProfileScreen() {
       <View style={styles.postContainer}>
         <FlatList
           data={PixelArt}
-          numColumns={1}
+          numColumns={3}
           renderItem={({item}) => (
-            <StaticPixelArt
-              gridSize={gridSize}
-              gridWidth={gridWidth}
-              touchedPixels={JSON.parse(item.touchedPixels)}
-            />
+            <View style={{width: gridWidth, height: gridWidth}}>
+              <StaticPixelArt
+                gridSize={gridSize}
+                gridWidth={gridWidth}
+                touchedPixels={JSON.parse(item.touchedPixels)}
+              />
+            </View>
           )}
         />
       </View>

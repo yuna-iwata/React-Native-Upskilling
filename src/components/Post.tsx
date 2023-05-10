@@ -1,7 +1,5 @@
-import {View, Text, StyleSheet, Image} from 'react-native';
-import PlaceholderImg from '../data/adventuretime.png';
+import {View, Text, StyleSheet} from 'react-native';
 import {StaticPixelArt} from './StaticPixelArt';
-import PixelArt from '../data/images.json';
 import {TouchedPixels} from '../types';
 
 const styles = StyleSheet.create({
@@ -52,7 +50,6 @@ export default function Post({
           touchedPixels={touchedPixels}
         />
       </View>
-      {/* <Image style={styles.imageWrapper} source={PlaceholderImg} /> */}
       <Text style={[styles.boldText]}>{username}</Text>
       <Text style={[styles.normalText, {fontSize: 12, marginBottom: '2%'}]}>
         {title}
