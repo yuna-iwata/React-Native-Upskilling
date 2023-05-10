@@ -1,9 +1,8 @@
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
 import {Button} from 'react-native';
 import CreatePixelArt from './CreatePixelArt';
 import PostPixelArt from './PostPixelArt';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {TouchedPixels} from '../../types';
 
 type CreatePixelArtStackParamList = {
@@ -14,7 +13,7 @@ type CreatePixelArtStackParamList = {
   };
 };
 
-export type CreatePixelArtProps = NativeStackScreenProps<
+export type CreatePixelArtProps = StackScreenProps<
   CreatePixelArtStackParamList,
   'Create',
   'Post'

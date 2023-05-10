@@ -66,6 +66,8 @@ export default function TabNavigator() {
                 width: profilePicWidth,
                 height: profilePicWidth,
                 borderRadius: profilePicWidth / 2,
+                borderWidth: 1,
+                borderColor: 'white',
               }}
             />
           ),
