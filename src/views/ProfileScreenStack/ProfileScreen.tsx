@@ -12,7 +12,7 @@ import ProfilePic from '../../data/profilepic.png';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import PixelArt from '../../data/images.json';
-import {CreateGrid} from '../../components/StaticPixelArt';
+import {StaticPixelArt} from '../../components/StaticPixelArt';
 
 export default function ProfileScreen() {
   const profilePicWidth = 80; //change these from abs values
@@ -102,7 +102,7 @@ export default function ProfileScreen() {
           data={PixelArt}
           numColumns={1}
           renderItem={({item}) => (
-            <CreateGrid
+            <StaticPixelArt
               gridSize={gridSize}
               gridWidth={gridWidth}
               touchedPixels={JSON.parse(item.touchedPixels)}

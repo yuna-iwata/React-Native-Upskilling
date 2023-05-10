@@ -6,6 +6,8 @@ import feedData from '../../data/feed.json';
 export default function HomeScreen() {
   const styles = StyleSheet.create({
     container: {
+      height: '100%',
+      width: '100%',
       backgroundColor: 'black',
       alignItems: 'center',
       justifyContent: 'center',
@@ -43,6 +45,7 @@ export default function HomeScreen() {
             title={item.title}
             likes={numberFormat(parseInt(item.likes))}
             comments={numberFormat(parseInt(item.comments))}
+            touchedPixels={JSON.parse(item.touchedPixels)}
           />
         )}
       />

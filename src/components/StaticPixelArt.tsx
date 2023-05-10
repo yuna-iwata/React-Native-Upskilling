@@ -22,7 +22,7 @@ interface CreateGridProps {
   touchedPixels: [] | [number, number][];
 }
 
-export function CreateGrid({
+export function StaticPixelArt({
   gridSize,
   gridWidth,
   touchedPixels,
