@@ -1,9 +1,10 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Image} from 'react-native';
 
 import HomeScreen from '../views/HomeScreenStack/HomeScreen';
-import CreatePixelArt from '../views/CreatePixelArtStack/CreatePixelArt';
-import ProfileScreen from '../views/ProfileScreen';
+import ProfileScreen from '../views/ProfileScreenStack/ProfileScreen';
+import ProfilePic from '../data/profilepic.png';
 import Feather from 'react-native-vector-icons/Feather';
 import Octicons from 'react-native-vector-icons/Octicons';
 import CreatePixelArtStackNav from '../views/CreatePixelArtStack/CreatePixelArtStackNav';
@@ -11,6 +12,7 @@ import CreatePixelArtStackNav from '../views/CreatePixelArtStack/CreatePixelArtS
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
+  const profilePicWidth = 30;
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -57,6 +59,18 @@ export default function TabNavigator() {
           headerTintColor: 'white',
           tabBarShowLabel: false,
           tabBarStyle: {backgroundColor: 'black'},
+          tabBarIcon: () => (
+            <Image
+              source={ProfilePic}
+              style={{
+                width: profilePicWidth,
+                height: profilePicWidth,
+                borderRadius: profilePicWidth / 2,
+                borderWidth: 1,
+                borderColor: 'white',
+              }}
+            />
+          ),
         }}
       />
     </Tab.Navigator>

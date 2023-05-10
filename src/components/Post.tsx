@@ -1,10 +1,11 @@
-import {View, Text, StyleSheet, Image} from 'react-native';
-import PlaceholderImg from '../data/adventuretime.png';
+import {View, Text, StyleSheet} from 'react-native';
+import {StaticPixelArt} from './StaticPixelArt';
+import {TouchedPixels} from '../types';
 
 const styles = StyleSheet.create({
   container: {
     width: 180,
-    height: 300,
+    height: 250,
     backgroundColor: '#1a1a1a',
     borderWidth: 1,
     justifyContent: 'flex-start',
@@ -13,8 +14,7 @@ const styles = StyleSheet.create({
   },
   imageWrapper: {
     width: '100%',
-    height: '70%',
-    backgroundColor: 'red',
+    aspectRatio: 1,
     marginBottom: '5%',
   },
   boldText: {
@@ -26,10 +26,30 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Post({username, title, likes, comments}) {
+interface PostProps {
+  username: string;
+  title: string;
+  likes: string;
+  comments: string;
+  touchedPixels: TouchedPixels;
+}
+
+export default function Post({
+  username,
+  title,
+  likes,
+  comments,
+  touchedPixels,
+}: PostProps) {
   return (
     <View style={styles.container}>
-      <Image style={styles.imageWrapper} source={PlaceholderImg} />
+      <View style={styles.imageWrapper}>
+        <StaticPixelArt
+          gridSize={15}
+          gridWidth={160} //might cause problems in the future
+          touchedPixels={touchedPixels}
+        />
+      </View>
       <Text style={[styles.boldText]}>{username}</Text>
       <Text style={[styles.normalText, {fontSize: 12, marginBottom: '2%'}]}>
         {title}

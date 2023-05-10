@@ -1,23 +1,11 @@
+import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {createGrid} from '../../components/DrawingPanel';
-
-function Pixel({width, touched, index, setTouchedPixels}) {
-  return (
-    <View
-      style={{
-        width: width,
-        borderWidth: 0.25,
-        borderColor: '#404040',
-        backgroundColor: 'white',
-      }}
-    />
-  );
-}
+import {StaticPixelArt} from '../../components/StaticPixelArt';
 
 const gridWidth = 100; //change this to a relative value not abs
 
-export default function PostPixelArt({route}) {
-  const {postData, gridSize} = route.params;
+export default function PostPixelArt({route}: any) {
+  const {touchedPixels, gridSize} = route.params;
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -41,7 +29,6 @@ export default function PostPixelArt({route}) {
     },
   });
 
-  const grid = createGrid(gridSize, gridWidth, postData, null);
   return (
     <View style={[styles.container]}>
       <View style={styles.postContainer}>
@@ -54,7 +41,11 @@ export default function PostPixelArt({route}) {
             width: gridWidth,
             backgroundColor: 'black',
           }}>
-          {grid}
+          <StaticPixelArt
+            gridSize={gridSize}
+            gridWidth={gridWidth}
+            touchedPixels={touchedPixels}
+          />
         </View>
       </View>
     </View>

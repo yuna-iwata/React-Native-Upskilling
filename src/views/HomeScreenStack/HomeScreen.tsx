@@ -1,16 +1,16 @@
 import React from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
+import {View, FlatList, StyleSheet} from 'react-native';
 import Post from '../../components/Post';
 import feedData from '../../data/feed.json';
 
 export default function HomeScreen() {
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      flexWrap: 'wrap',
+      height: '100%',
+      width: '100%',
       backgroundColor: 'black',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
     },
   });
 
@@ -21,7 +21,7 @@ export default function HomeScreen() {
     var tier = (Math.log10(Math.abs(number)) / 3) | 0;
 
     // if zero, we don't need a suffix
-    if (tier == 0) return number;
+    if (tier == 0) return number.toString();
 
     // get suffix and determine scale
     var suffix = SI_SYMBOL[tier];
@@ -35,7 +35,6 @@ export default function HomeScreen() {
   }
   return (
     <View style={[styles.container]}>
-      <Text style={{color: 'white'}}>home</Text>
       <FlatList
         data={feedData}
         numColumns={2}
@@ -45,6 +44,7 @@ export default function HomeScreen() {
             title={item.title}
             likes={numberFormat(parseInt(item.likes))}
             comments={numberFormat(parseInt(item.comments))}
+            touchedPixels={JSON.parse(item.touchedPixels)}
           />
         )}
       />
