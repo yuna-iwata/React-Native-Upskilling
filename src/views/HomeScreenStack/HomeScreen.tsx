@@ -6,8 +6,6 @@ import feedData from '../../data/feed.json';
 export default function HomeScreen() {
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      flexWrap: 'wrap',
       backgroundColor: 'black',
       alignItems: 'center',
       justifyContent: 'center',

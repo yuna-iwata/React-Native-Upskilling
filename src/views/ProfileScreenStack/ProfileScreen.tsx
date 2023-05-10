@@ -1,10 +1,21 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Dimensions,
+  FlatList,
+} from 'react-native';
 import PixelBg from '../../data/pixelbg.png';
+import ProfilePic from '../../data/profilepic.png';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import PixelArt from '../../data/images.json';
+import {CreateGrid} from '../../components/StaticPixelArt';
 
 export default function ProfileScreen() {
+  const profilePicWidth = 80; //change these from abs values
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -17,13 +28,14 @@ export default function ProfileScreen() {
       borderColor: '#323232',
       height: '50%',
       width: '100%',
+      display: 'flex',
     },
     infoContainer: {
       borderTopWidth: 1,
       borderColor: '#323232',
       height: '25%',
       width: '100%',
-      padding: '7%',
+      paddingLeft: '7%',
     },
     iconContainer: {
       borderColor: '#323232',
@@ -37,6 +49,13 @@ export default function ProfileScreen() {
       height: '20%',
       width: '100%',
     },
+    profilePicture: {
+      width: profilePicWidth,
+      height: profilePicWidth,
+      borderRadius: profilePicWidth / 2,
+      marginTop: -profilePicWidth / 2,
+      borderWidth: 2,
+    },
     normalText: {
       color: 'white',
     },
@@ -49,11 +68,14 @@ export default function ProfileScreen() {
     },
   });
 
+  const gridWidth = Dimensions.get('window').width / 3; //change this to a relative value not abs
+  const gridSize = 15;
   return (
     <View style={styles.container}>
       <Text style={styles.normalText}>profile</Text>
       <Image style={styles.bannerContainer} source={PixelBg} />
       <View style={styles.infoContainer}>
+        <Image style={styles.profilePicture} source={ProfilePic} />
         <Text style={[styles.boldText, {fontSize: 20, marginBottom: '0.5%'}]}>
           username
         </Text>
@@ -75,7 +97,19 @@ export default function ProfileScreen() {
         />
         <FontAwesome name="folder-o" style={{color: 'white', fontSize: 30}} />
       </View>
-      <View style={styles.postContainer}></View>
+      <View style={styles.postContainer}>
+        <FlatList
+          data={PixelArt}
+          numColumns={1}
+          renderItem={({item}) => (
+            <CreateGrid
+              gridSize={gridSize}
+              gridWidth={gridWidth}
+              touchedPixels={JSON.parse(item.touchedPixels)}
+            />
+          )}
+        />
+      </View>
     </View>
   );
 }

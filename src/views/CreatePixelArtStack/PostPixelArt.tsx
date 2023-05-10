@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {createGrid} from '../../components/StaticPixelArt';
+import {CreateGrid} from '../../components/StaticPixelArt';
 
 const gridWidth = 100; //change this to a relative value not abs
 
@@ -29,7 +29,6 @@ export default function PostPixelArt({route}: any) {
     },
   });
 
-  const grid = createGrid({gridSize, gridWidth, touchedPixels});
   return (
     <View style={[styles.container]}>
       <View style={styles.postContainer}>
@@ -42,7 +41,11 @@ export default function PostPixelArt({route}: any) {
             width: gridWidth,
             backgroundColor: 'black',
           }}>
-          {grid}
+          <CreateGrid
+            gridSize={gridSize}
+            gridWidth={gridWidth}
+            touchedPixels={touchedPixels}
+          />
         </View>
       </View>
     </View>

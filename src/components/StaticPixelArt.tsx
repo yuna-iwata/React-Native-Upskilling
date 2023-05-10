@@ -7,6 +7,7 @@ function Pixel({width, touched}: {width: number; touched: boolean}) {
     <View
       style={{
         width: width,
+        height: width,
         borderWidth: 0.25,
         borderColor: '#404040',
         backgroundColor: pixelColor,
@@ -21,7 +22,7 @@ interface CreateGridProps {
   touchedPixels: [] | [number, number][];
 }
 
-export function createGrid({
+export function CreateGrid({
   gridSize,
   gridWidth,
   touchedPixels,
@@ -46,10 +47,12 @@ export function createGrid({
         style={{
           flex: 1,
           flexDirection: 'row',
+          height: pixelWidth,
+          width: pixelWidth,
         }}>
         {pixels}
       </View>,
     );
   }
-  return rows;
+  return <>{rows}</>;
 }
