@@ -21,7 +21,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
 
   const [touchedPixels, setTouchedPixels] = useState<TouchedPixels>([]);
   const gridSize = 15;
-  const [selectedColours, setSelectedColours] = useState([
+  const [colourPalette, setColourPalette] = useState([
     '#9E4242',
     '#9E5842',
     '#9E9542',
@@ -30,6 +30,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     '#70429E',
     '#9E4279',
   ]);
+  const [selectedColour, setSelectedColour] = useState('#fff');
 
   useEffect(() => {
     navigation.setOptions({
@@ -53,10 +54,13 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
         touchedPixels={touchedPixels}
         setTouchedPixels={setTouchedPixels}
         gridSize={gridSize}
+        selectedColour={selectedColour}
       />
       <View style={[styles.colourContainer, {marginTop: '5%'}]}>
-        {selectedColours.map(colour => {
-          return <ColourBox colour={colour} />;
+        {colourPalette.map(colour => {
+          return (
+            <ColourBox colour={colour} setSelectedColour={setSelectedColour} />
+          );
         })}
       </View>
       <Button title="clear" onPress={() => setTouchedPixels([])} />

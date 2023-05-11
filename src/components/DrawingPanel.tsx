@@ -17,6 +17,7 @@ const Pixel: React.FC<PixelProps> = ({
   touched,
   index,
   setTouchedPixels,
+  selectedColour,
 }) => {
   const [pixelColor, setPixelColor] = useState(touched ? '#fff' : 'black');
 
@@ -25,7 +26,7 @@ const Pixel: React.FC<PixelProps> = ({
   }, [touched]);
 
   function applyColor() {
-    setPixelColor('#fff');
+    setPixelColor(selectedColour);
     setTouchedPixels(prev => [...prev, index] as TouchedPixels);
   }
 
@@ -56,6 +57,7 @@ function createGrid({
   gridWidth,
   touchedPixels,
   setTouchedPixels,
+  selectedColour,
 }: CreateGridProps) {
   const rows = [];
   const pixelWidth = gridWidth / gridSize;
@@ -72,6 +74,7 @@ function createGrid({
           height={pixelWidth}
           touched={touched}
           setTouchedPixels={setTouchedPixels}
+          selectedColour={selectedColour}
           index={[i, j]}
           key={`${i}-${j}`}
         />,
@@ -96,6 +99,7 @@ export default function DrawingPanel({
   touchedPixels,
   setTouchedPixels,
   gridSize,
+  selectedColour,
 }: {
   touchedPixels: TouchedPixels;
   setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
@@ -127,7 +131,10 @@ export default function DrawingPanel({
     gridWidth,
     touchedPixels,
     setTouchedPixels,
+    selectedColour,
   });
+
+  console.log(touchedPixels);
 
   return (
     <GestureDetector gesture={panGesture}>

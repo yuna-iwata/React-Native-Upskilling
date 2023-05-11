@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 
-export default function ColourBox({colour}) {
+export default function ColourBox({colour, setSelectedColour}) {
   const styles = StyleSheet.create({
     container: {
       height: '70%',
@@ -10,5 +10,12 @@ export default function ColourBox({colour}) {
       backgroundColor: colour,
     },
   });
-  return <View style={styles.container} />;
+  return (
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        setSelectedColour(colour);
+      }}
+    />
+  );
 }
