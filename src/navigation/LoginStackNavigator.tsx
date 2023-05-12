@@ -19,10 +19,10 @@ export type LoginProps = StackScreenProps<
 const Stack = createStackNavigator<LoginStackParamList>();
 
 export default function LoginStackNav() {
-  const {loggedIn} = useContext(UserAuthContext);
-
-  useEffect(() => {}, [loggedIn]);
-
+  const {loggedIn, appLoaded} = useContext(UserAuthContext);
+  if (!appLoaded) {
+    return null;
+  }
   return (
     <Stack.Navigator initialRouteName={loggedIn ? 'App' : 'LoginStack'}>
       <Stack.Screen name="LoginStack" component={LoginScreen} />
