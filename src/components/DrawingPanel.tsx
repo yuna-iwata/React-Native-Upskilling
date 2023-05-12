@@ -9,6 +9,7 @@ interface PixelProps {
   touched: boolean;
   index: number[];
   setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
+  selectedColour: string;
 }
 
 const Pixel: React.FC<PixelProps> = ({
@@ -29,10 +30,10 @@ const Pixel: React.FC<PixelProps> = ({
 
   function applyColor() {
     setPixelColor(selectedColour);
-    setTouchedPixels(prev => [
-      ...prev,
-      {pixelIndex: index, colour: selectedColour},
-    ]);
+    setTouchedPixels(
+      prev =>
+        [...prev, {pixelIndex: index, colour: selectedColour}] as TouchedPixels,
+    );
   }
 
   return (
@@ -55,6 +56,7 @@ interface CreateGridProps {
   gridWidth: number;
   touchedPixels: TouchedPixels;
   setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
+  selectedColour: string;
 }
 
 function createGrid({
@@ -70,7 +72,10 @@ function createGrid({
     const pixels = [];
 
     for (let j = 0; j < gridSize; j++) {
-      const touched = touchedPixels.some(
+      const touchedPixelsIndex = touchedPixels.map(item => {
+        return item.pixelIndex;
+      });
+      const touched = touchedPixelsIndex.some(
         elem => elem[0] === i && elem[1] === j,
       );
       pixels.push(
@@ -109,6 +114,7 @@ export default function DrawingPanel({
   touchedPixels: TouchedPixels;
   setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
   gridSize: number;
+  selectedColour: string;
 }) {
   const gridWidth = Dimensions.get('window').width;
   const pixelWidth = gridWidth / gridSize;
@@ -123,8 +129,18 @@ export default function DrawingPanel({
       const row = Math.floor(yPos / pixelWidth);
       const newPixel = [row, col];
 
-      if (!touchedPixels.some(p => p[0] === row && p[1] === col)) {
-        setTouchedPixels(prev => [...prev, newPixel] as TouchedPixels);
+      const touchedPixelsIndex = touchedPixels.map(item => {
+        return item.pixelIndex;
+      });
+
+      if (!touchedPixelsIndex.some(p => p[0] === row && p[1] === col)) {
+        setTouchedPixels(
+          prev =>
+            [
+              ...prev,
+              {pixelIndex: newPixel, colour: selectedColour},
+            ] as TouchedPixels,
+        );
       }
     })
     .onEnd(() => {
