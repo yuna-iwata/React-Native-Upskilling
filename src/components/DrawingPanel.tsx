@@ -27,7 +27,10 @@ const Pixel: React.FC<PixelProps> = ({
 
   function applyColor() {
     setPixelColor(selectedColour);
-    setTouchedPixels(prev => [...prev, index] as TouchedPixels);
+    setTouchedPixels(prev => [
+      ...prev,
+      {pixelIndex: index, colour: selectedColour},
+    ]);
   }
 
   return (
