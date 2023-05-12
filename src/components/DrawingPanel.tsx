@@ -19,10 +19,12 @@ const Pixel: React.FC<PixelProps> = ({
   setTouchedPixels,
   selectedColour,
 }) => {
-  const [pixelColor, setPixelColor] = useState(touched ? '#fff' : 'black');
+  const [pixelColor, setPixelColor] = useState(
+    touched ? selectedColour : 'black',
+  );
 
   useEffect(() => {
-    setPixelColor(touched ? '#fff' : 'black');
+    setPixelColor(touched ? selectedColour : 'black');
   }, [touched]);
 
   function applyColor() {
