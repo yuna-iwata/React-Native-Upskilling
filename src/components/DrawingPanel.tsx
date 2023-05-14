@@ -24,7 +24,9 @@ const Pixel: React.FC<PixelProps> = ({
   touchedPixels,
   selectedColour,
 }) => {
-  useEffect(() => {}, [touched, pixelColour, touchedPixels]);
+  useEffect(() => {
+    console.log('');
+  }, [touched, pixelColour]);
 
   function applyColor() {
     if (touched) {
