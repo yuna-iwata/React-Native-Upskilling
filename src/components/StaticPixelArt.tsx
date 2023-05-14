@@ -4,12 +4,11 @@ import {TouchedPixels} from '../types';
 
 function Pixel({
   width,
-  touched,
   index,
   touchedPixels,
 }: {
   width: number;
-  touched: boolean;
+  index: [number, number];
   touchedPixels: TouchedPixels;
 }) {
   let pixelColour = 'black';
@@ -36,7 +35,7 @@ function Pixel({
 interface CreateGridProps {
   gridSize: number;
   gridWidth: number;
-  touchedPixels: [] | [number, number][];
+  touchedPixels: TouchedPixels;
 }
 
 export function StaticPixelArt({
@@ -50,14 +49,10 @@ export function StaticPixelArt({
     const pixels = [];
 
     for (let j = 0; j < gridSize; j++) {
-      const touched = touchedPixels.some(
-        elem => elem[0] === i && elem[1] === j,
-      );
       pixels.push(
         <Pixel
           width={pixelWidth}
           key={`${i}-${j}`}
-          touched={touched}
           index={[i, j]}
           touchedPixels={touchedPixels}
         />,
