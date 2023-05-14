@@ -18,18 +18,25 @@ const Pixel: React.FC<PixelProps> = ({
   touched,
   index,
   setTouchedPixels,
+  pixelColour,
+  touchedPixels,
   selectedColour,
 }) => {
-  const [pixelColor, setPixelColor] = useState(
-    touched ? selectedColour : 'black',
-  );
-
-  useEffect(() => {
-    setPixelColor(touched ? selectedColour : 'black');
-  }, [touched]);
+  useEffect(() => {}, [touched, pixelColour, touchedPixels]);
 
   function applyColor() {
-    setPixelColor(selectedColour);
+    if (touched) {
+      const modifyColour = touchedPixels.map(item => {
+        if (
+          item.pixelIndex[0] === index[0] &&
+          item.pixelIndex[1] === index[1]
+        ) {
+          return {...item, colour: selectedColour};
+        }
+        return item;
+      });
+      setTouchedPixels(modifyColour);
+    }
     setTouchedPixels(
       prev =>
         [...prev, {pixelIndex: index, colour: selectedColour}] as TouchedPixels,
@@ -44,7 +51,7 @@ const Pixel: React.FC<PixelProps> = ({
           height: height,
           borderWidth: 0.25,
           borderColor: '#404040',
-          backgroundColor: pixelColor,
+          backgroundColor: pixelColour,
         }}
       />
     </TouchableWithoutFeedback>
@@ -68,6 +75,7 @@ function createGrid({
 }: CreateGridProps) {
   const rows = [];
   const pixelWidth = gridWidth / gridSize;
+
   for (let i = 0; i < gridSize; i++) {
     const pixels = [];
 
@@ -78,12 +86,19 @@ function createGrid({
       const touched = touchedPixelsIndex.some(
         elem => elem[0] === i && elem[1] === j,
       );
+      let index = touchedPixels.findIndex(
+        item => item.pixelIndex[0] === i && item.pixelIndex[1] === j,
+      );
+      let pixelColour = index !== -1 ? touchedPixels[index].colour : 'black';
+
       pixels.push(
         <Pixel
           width={pixelWidth}
           height={pixelWidth}
-          touched={touched}
           setTouchedPixels={setTouchedPixels}
+          touched={touched}
+          touchedPixels={touchedPixels}
+          pixelColour={pixelColour}
           selectedColour={selectedColour}
           index={[i, j]}
           key={`${i}-${j}`}
@@ -141,6 +156,14 @@ export default function DrawingPanel({
               {pixelIndex: newPixel, colour: selectedColour},
             ] as TouchedPixels,
         );
+      } else {
+        const modifiedColour = touchedPixels.map(item => {
+          if (item.pixelIndex[0] === row && item.pixelIndex[1] === col) {
+            return {...item, colour: selectedColour};
+          }
+          return item;
+        });
+        setTouchedPixels(modifiedColour);
       }
     })
     .onEnd(() => {
@@ -154,8 +177,6 @@ export default function DrawingPanel({
     setTouchedPixels,
     selectedColour,
   });
-
-  console.log(touchedPixels);
 
   return (
     <GestureDetector gesture={panGesture}>
