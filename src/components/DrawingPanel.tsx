@@ -24,9 +24,7 @@ const Pixel: React.FC<PixelProps> = ({
   touchedPixels,
   selectedColour,
 }) => {
-  useEffect(() => {
-    console.log('');
-  }, [touched, pixelColour]);
+  useEffect(() => {}, [touched, pixelColour]);
 
   function applyColor() {
     if (touched) {
@@ -181,6 +179,7 @@ export default function DrawingPanel({
     setTouchedPixels,
     selectedColour,
   });
+  console.log(touchedPixels);
 
   return (
     <GestureDetector gesture={panGesture}>

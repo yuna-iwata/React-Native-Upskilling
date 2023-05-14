@@ -125,7 +125,7 @@ export default function ProfileScreen() {
               <StaticPixelArt
                 gridSize={gridSize}
                 gridWidth={gridWidth}
-                touchedPixels={JSON.parse(item.touchedPixels)}
+                touchedPixels={item.touchedPixels}
               />
             </View>
           )}

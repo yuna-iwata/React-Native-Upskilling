@@ -33,6 +33,7 @@ export default function HomeScreen() {
     // format number and add suffix
     return scaled.toFixed(1) + suffix;
   }
+  console.log(feedData[0].touchedPixels);
   return (
     <View style={[styles.container]}>
       <FlatList
@@ -44,7 +45,7 @@ export default function HomeScreen() {
             title={item.title}
             likes={numberFormat(parseInt(item.likes))}
             comments={numberFormat(parseInt(item.comments))}
-            touchedPixels={JSON.parse(item.touchedPixels)}
+            touchedPixels={item.touchedPixels}
           />
         )}
       />

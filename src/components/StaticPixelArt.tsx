@@ -1,8 +1,25 @@
 import React from 'react';
 import {View} from 'react-native';
+import {TouchedPixels} from '../types';
 
-function Pixel({width, touched}: {width: number; touched: boolean}) {
-  const pixelColor = touched ? '#fff' : 'black';
+function Pixel({
+  width,
+  touched,
+  index,
+  touchedPixels,
+}: {
+  width: number;
+  touched: boolean;
+  touchedPixels: TouchedPixels;
+}) {
+  let pixelColour = 'black';
+  let touchedPixelIndex = touchedPixels.findIndex(
+    item => item.pixelIndex[0] === index[0] && item.pixelIndex[1] === index[1],
+  );
+  if (touchedPixelIndex !== -1) {
+    pixelColour = touchedPixels[touchedPixelIndex].colour;
+  }
+
   return (
     <View
       style={{
@@ -10,7 +27,7 @@ function Pixel({width, touched}: {width: number; touched: boolean}) {
         height: width,
         borderWidth: 0.25,
         borderColor: '#404040',
-        backgroundColor: pixelColor,
+        backgroundColor: pixelColour,
       }}
     />
   );
@@ -37,7 +54,13 @@ export function StaticPixelArt({
         elem => elem[0] === i && elem[1] === j,
       );
       pixels.push(
-        <Pixel width={pixelWidth} key={`${i}-${j}`} touched={touched} />,
+        <Pixel
+          width={pixelWidth}
+          key={`${i}-${j}`}
+          touched={touched}
+          index={[i, j]}
+          touchedPixels={touchedPixels}
+        />,
       );
     }
 
