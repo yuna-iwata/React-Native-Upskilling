@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {View, TouchableWithoutFeedback, Dimensions} from 'react-native';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
 import {TouchedPixels} from '../types';
@@ -9,6 +9,8 @@ interface PixelProps {
   touched: boolean;
   index: number[];
   setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
+  pixelColour: string;
+  touchedPixels: TouchedPixels;
   selectedColour: string;
 }
 
