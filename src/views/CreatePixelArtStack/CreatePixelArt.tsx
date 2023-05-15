@@ -20,9 +20,19 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     },
   });
 
-  const [touchedPixels, setTouchedPixels] = useState([]);
-
   const gridSize = 15;
+  const generateEmptyGrid = (length: number) => {
+    const emptyArray = Array.from({length}, (_, i) => []);
+    emptyArray.forEach(item => {
+      for (let i = 0; i < length; i++) {
+        item.push({pixelColour: 'black'});
+      }
+    });
+
+    return emptyArray;
+  };
+  const emptyGrid = generateEmptyGrid(gridSize);
+  const [touchedPixels, setTouchedPixels] = useState(emptyGrid);
   const [colourPalette, setColourPalette] = useState([
     '#9E4242',
     '#9E5842',
@@ -71,7 +81,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
           );
         })}
       </View>
-      <Button title="clear" onPress={() => setTouchedPixels([])} />
+      <Button title="clear" onPress={() => setTouchedPixels(emptyGrid)} />
     </View>
   );
 }

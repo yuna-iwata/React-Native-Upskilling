@@ -14,12 +14,16 @@ const Pixel = ({
 }) => {
   const [newPixelColour, setNewPixelColour] = useState(pixelColour);
   function applyColour() {
-    setNewPixelColour(selectedColour);
     const newPixelGrid = [...touchedPixels];
     newPixelGrid[index[0]][index[1]].pixelColour = selectedColour;
     setTouchedPixels(newPixelGrid);
+    //setNewPixelColour(selectedColour);
     console.log(touchedPixels);
   }
+
+  useEffect(() => {
+    setNewPixelColour(touchedPixels[index[0]][index[1]].pixelColour);
+  }, [touchedPixels]);
 
   return (
     <TouchableWithoutFeedback delayPressOut={0} onPress={applyColour}>
@@ -35,16 +39,6 @@ const Pixel = ({
     </TouchableWithoutFeedback>
   );
 };
-const generateEmptyGrid = (length: number) => {
-  const emptyArray = Array.from({length}, (_, i) => []);
-  emptyArray.forEach(item => {
-    for (let i = 0; i < length; i++) {
-      item.push({pixelColour: 'black'});
-    }
-  });
-
-  return emptyArray;
-};
 
 export default function DrawingPanelTwo({
   gridSize,
@@ -52,11 +46,6 @@ export default function DrawingPanelTwo({
   touchedPixels,
   setTouchedPixels,
 }) {
-  const pixelGrid = generateEmptyGrid(gridSize);
-  useEffect(() => {
-    setTouchedPixels(pixelGrid);
-  }, []);
-
   const createPixelGrid = () => {
     const rows = [];
     const gridWidth = Dimensions.get('window').width;
@@ -65,14 +54,13 @@ export default function DrawingPanelTwo({
     for (let i = 0; i < gridSize; i++) {
       const pixels = [];
       for (let j = 0; j < gridSize; j++) {
-        let pixelColour = pixelGrid[i][j].pixelColour;
+        let pixelColour = touchedPixels[i][j].pixelColour;
         pixels.push(
           <Pixel
             width={pixelWidth}
             pixelColour={pixelColour}
             selectedColour={selectedColour}
             index={[i, j]}
-            pixelGrid={pixelGrid}
             touchedPixels={touchedPixels}
             setTouchedPixels={setTouchedPixels}
           />,
