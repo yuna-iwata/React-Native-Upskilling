@@ -17,8 +17,6 @@ const Pixel = ({
     const newPixelGrid = [...touchedPixels];
     newPixelGrid[index[0]][index[1]].pixelColour = selectedColour;
     setTouchedPixels(newPixelGrid);
-    //setNewPixelColour(selectedColour);
-    console.log(touchedPixels);
   }
 
   useEffect(() => {
