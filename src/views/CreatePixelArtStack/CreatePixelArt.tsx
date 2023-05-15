@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, Button, StyleSheet} from 'react-native';
 import DrawingPanel from '../../components/DrawingPanel';
-import DrawingPanelTwo from '../../components/DrawingPanelTwo';
 import {TouchedPixels} from '../../types';
 import {CreatePixelArtProps} from './CreatePixelArtStackNav';
 import ColourBox from '../../components/ColourBox';
@@ -62,13 +61,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
 
   return (
     <View style={[styles.container]}>
-      {/* <DrawingPanel
-        touchedPixels={touchedPixels}
-        setTouchedPixels={setTouchedPixels}
-        gridSize={gridSize}
-        selectedColour={selectedColour}
-      /> */}
-      <DrawingPanelTwo
+      <DrawingPanel
         gridSize={gridSize}
         selectedColour={selectedColour}
         touchedPixels={touchedPixels}
