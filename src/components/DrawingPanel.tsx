@@ -158,7 +158,7 @@ export default function DrawingPanel({
               {pixelIndex: newPixel, colour: selectedColour},
             ] as TouchedPixels,
         );
-      } else {
+      } else if (touchedPixelsIndex.some(p => p[0] === row && p[1] === col)) {
         const modifiedColour = touchedPixels.map(item => {
           if (item.pixelIndex[0] === row && item.pixelIndex[1] === col) {
             return {...item, colour: selectedColour};
@@ -179,7 +179,6 @@ export default function DrawingPanel({
     setTouchedPixels,
     selectedColour,
   });
-  console.log(touchedPixels);
 
   return (
     <GestureDetector gesture={panGesture}>
