@@ -1,7 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
+import {TouchedPixels} from '../types';
 
-const Pixel = ({width, pixelColour}) => {
+const Pixel = ({width, pixelColour}: {width: number; pixelColour: string}) => {
   return (
     <View
       style={{
@@ -15,7 +16,15 @@ const Pixel = ({width, pixelColour}) => {
   );
 };
 
-export default function StaticPixelArt({gridSize, gridWidth, touchedPixels}) {
+export default function StaticPixelArt({
+  gridSize,
+  gridWidth,
+  touchedPixels,
+}: {
+  gridSize: number;
+  gridWidth: number;
+  touchedPixels: TouchedPixels;
+}) {
   const pixelWidth = gridWidth / gridSize;
   const createPixelGrid = () => {
     const rows = [];
@@ -23,9 +32,7 @@ export default function StaticPixelArt({gridSize, gridWidth, touchedPixels}) {
       const pixels = [];
       for (let j = 0; j < gridSize; j++) {
         let pixelColour = touchedPixels[i][j].pixelColour;
-        pixels.push(
-          <Pixel width={pixelWidth} pixelColour={pixelColour} index={[i, j]} />,
-        );
+        pixels.push(<Pixel width={pixelWidth} pixelColour={pixelColour} />);
       }
       rows.push(
         <View

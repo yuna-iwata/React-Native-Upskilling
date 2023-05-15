@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {StaticPixelArt} from '../../components/StaticPixelArt';
-import StaticPixelArt2 from '../../components/StaticPixelArt';
+import StaticPixelArt from '../../components/StaticPixelArt';
 
 const gridWidth = 100; //change this to a relative value not abs
 
@@ -42,7 +41,7 @@ export default function PostPixelArt({route}: any) {
             width: gridWidth,
             backgroundColor: 'black',
           }}>
-          <StaticPixelArt2
+          <StaticPixelArt
             gridSize={gridSize}
             gridWidth={gridWidth}
             touchedPixels={touchedPixels}
