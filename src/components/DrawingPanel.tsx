@@ -1,16 +1,22 @@
 import React, {useState, useEffect} from 'react';
 import {View, TouchableWithoutFeedback, Dimensions} from 'react-native';
-import CreatePixelArtStackNav from '../views/CreatePixelArtStack/CreatePixelArtStackNav';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
-import {create} from 'react-test-renderer';
-import ColourBox from './ColourBox';
+import {TouchedPixels} from '../types';
 
-const Pixel = ({
+interface PixelProps {
+  width: number;
+  pixelColour: string;
+  index: [number, number];
+  selectedColour: string;
+  touchedPixels: TouchedPixels;
+  setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
+}
+
+const Pixel: React.FC<PixelProps> = ({
   width,
   pixelColour,
   index,
   selectedColour,
-  pixelGrid,
   touchedPixels,
   setTouchedPixels,
 }) => {
@@ -45,6 +51,11 @@ export default function DrawingPanel({
   selectedColour,
   touchedPixels,
   setTouchedPixels,
+}: {
+  gridSize: number;
+  selectedColour: string;
+  touchedPixels: TouchedPixels;
+  setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
 }) {
   const gridWidth = Dimensions.get('window').width;
   const pixelWidth = gridWidth / gridSize;

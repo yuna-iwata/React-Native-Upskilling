@@ -31,7 +31,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     return emptyArray;
   };
   const emptyGrid = generateEmptyGrid(gridSize);
-  const [touchedPixels, setTouchedPixels] = useState(emptyGrid);
+  const [touchedPixels, setTouchedPixels] = useState<TouchedPixels>(emptyGrid);
   const [colourPalette, setColourPalette] = useState([
     '#9E4242',
     '#9E5842',
