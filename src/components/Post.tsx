@@ -1,6 +1,6 @@
 import {View, Text, StyleSheet} from 'react-native';
-import {StaticPixelArt} from './StaticPixelArt';
 import {TouchedPixels} from '../types';
+import StaticPixelArt from './StaticPixelArt';
 
 const styles = StyleSheet.create({
   container: {

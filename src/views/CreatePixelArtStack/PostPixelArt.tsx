@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {StaticPixelArt} from '../../components/StaticPixelArt';
-import StaticPixelArt2 from '../../components/StaticPixelArt2';
+import StaticPixelArt2 from '../../components/StaticPixelArt';
 
 const gridWidth = 100; //change this to a relative value not abs
 
