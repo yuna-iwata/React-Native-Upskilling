@@ -24,7 +24,11 @@ export default function LoginStackNav() {
     return null;
   }
   return (
-    <Stack.Navigator initialRouteName={loggedIn ? 'App' : 'LoginStack'}>
+    <Stack.Navigator
+      initialRouteName={loggedIn ? 'App' : 'LoginStack'}
+      screenOptions={{
+        headerShown: false,
+      }}>
       <Stack.Screen name="LoginStack" component={LoginScreen} />
       <Stack.Screen name="App" component={TabNavigator} />
     </Stack.Navigator>
