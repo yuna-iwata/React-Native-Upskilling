@@ -20,7 +20,8 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     },
   });
 
-  const [touchedPixels, setTouchedPixels] = useState<TouchedPixels>([]);
+  const [touchedPixels, setTouchedPixels] = useState([]);
+
   const gridSize = 15;
   const [colourPalette, setColourPalette] = useState([
     '#9E4242',
@@ -57,7 +58,12 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
         gridSize={gridSize}
         selectedColour={selectedColour}
       /> */}
-      <DrawingPanelTwo gridSize={gridSize} selectedColour={selectedColour} />
+      <DrawingPanelTwo
+        gridSize={gridSize}
+        selectedColour={selectedColour}
+        touchedPixels={touchedPixels}
+        setTouchedPixels={setTouchedPixels}
+      />
       <View style={[styles.colourContainer, {marginTop: '5%'}]}>
         {colourPalette.map(colour => {
           return (

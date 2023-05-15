@@ -1,17 +1,35 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, TouchableWithoutFeedback, Dimensions} from 'react-native';
+import CreatePixelArtStackNav from '../views/CreatePixelArtStack/CreatePixelArtStackNav';
 import {create} from 'react-test-renderer';
 
-const Pixel = ({width, pixelColour}) => {
+const Pixel = ({
+  width,
+  pixelColour,
+  index,
+  selectedColour,
+  pixelGrid,
+  touchedPixels,
+  setTouchedPixels,
+}) => {
+  const [newPixelColour, setNewPixelColour] = useState(pixelColour);
+  function applyColour() {
+    setNewPixelColour(selectedColour);
+    const newPixelGrid = [...touchedPixels];
+    newPixelGrid[index[0]][index[1]].pixelColour = selectedColour;
+    setTouchedPixels(newPixelGrid);
+    console.log(touchedPixels);
+  }
+
   return (
-    <TouchableWithoutFeedback delayPressOut={0}>
+    <TouchableWithoutFeedback delayPressOut={0} onPress={applyColour}>
       <View
         style={{
           width: width,
           height: width,
           borderWidth: 0.25,
           borderColor: '#404040',
-          backgroundColor: pixelColour,
+          backgroundColor: newPixelColour,
         }}
       />
     </TouchableWithoutFeedback>
@@ -21,15 +39,23 @@ const generateEmptyGrid = (length: number) => {
   const emptyArray = Array.from({length}, (_, i) => []);
   emptyArray.forEach(item => {
     for (let i = 0; i < length; i++) {
-      item.push({pixelColour: 'pink'});
+      item.push({pixelColour: 'black'});
     }
   });
 
   return emptyArray;
 };
 
-export default function DrawingPanelTwo({gridSize}) {
+export default function DrawingPanelTwo({
+  gridSize,
+  selectedColour,
+  touchedPixels,
+  setTouchedPixels,
+}) {
   const pixelGrid = generateEmptyGrid(gridSize);
+  useEffect(() => {
+    setTouchedPixels(pixelGrid);
+  }, []);
 
   const createPixelGrid = () => {
     const rows = [];
@@ -40,7 +66,17 @@ export default function DrawingPanelTwo({gridSize}) {
       const pixels = [];
       for (let j = 0; j < gridSize; j++) {
         let pixelColour = pixelGrid[i][j].pixelColour;
-        pixels.push(<Pixel width={pixelWidth} pixelColour={pixelColour} />);
+        pixels.push(
+          <Pixel
+            width={pixelWidth}
+            pixelColour={pixelColour}
+            selectedColour={selectedColour}
+            index={[i, j]}
+            pixelGrid={pixelGrid}
+            touchedPixels={touchedPixels}
+            setTouchedPixels={setTouchedPixels}
+          />,
+        );
       }
       rows.push(
         <View
@@ -55,6 +91,7 @@ export default function DrawingPanelTwo({gridSize}) {
     }
     return rows;
   };
+  const grid = createPixelGrid();
   return (
     <View
       style={{
@@ -62,7 +99,7 @@ export default function DrawingPanelTwo({gridSize}) {
         width: '100%',
         backgroundColor: 'black',
       }}>
-      {createPixelGrid()}
+      {grid}
     </View>
   );
 }
