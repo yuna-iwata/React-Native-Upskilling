@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {View, TouchableWithoutFeedback, Dimensions} from 'react-native';
 import CreatePixelArtStackNav from '../views/CreatePixelArtStack/CreatePixelArtStackNav';
+import {GestureDetector, Gesture} from 'react-native-gesture-handler';
 import {create} from 'react-test-renderer';
+import ColourBox from './ColourBox';
 
 const Pixel = ({
   width,
@@ -44,11 +46,30 @@ export default function DrawingPanelTwo({
   touchedPixels,
   setTouchedPixels,
 }) {
+  const gridWidth = Dimensions.get('window').width;
+  const pixelWidth = gridWidth / gridSize;
+  const panGesture = Gesture.Pan()
+    .onStart(() => {
+      console.log('start');
+    })
+    .onUpdate(e => {
+      const xPos = e.x;
+      const yPos = e.y;
+      const col = Math.floor(xPos / pixelWidth);
+      const row = Math.floor(yPos / pixelWidth);
+      const newPixel = [row, col];
+
+      if (touchedPixels[row][col].pixelColour !== selectedColour) {
+        const newPixelGrid = [...touchedPixels];
+        newPixelGrid[row][col].pixelColour = selectedColour;
+        setTouchedPixels(newPixelGrid);
+      }
+    })
+    .onEnd(() => {
+      console.log('end');
+    });
   const createPixelGrid = () => {
     const rows = [];
-    const gridWidth = Dimensions.get('window').width;
-    const pixelWidth = gridWidth / gridSize;
-
     for (let i = 0; i < gridSize; i++) {
       const pixels = [];
       for (let j = 0; j < gridSize; j++) {
@@ -79,13 +100,15 @@ export default function DrawingPanelTwo({
   };
   const grid = createPixelGrid();
   return (
-    <View
-      style={{
-        aspectRatio: 1,
-        width: '100%',
-        backgroundColor: 'black',
-      }}>
-      {grid}
-    </View>
+    <GestureDetector gesture={panGesture}>
+      <View
+        style={{
+          aspectRatio: 1,
+          width: '100%',
+          backgroundColor: 'black',
+        }}>
+        {grid}
+      </View>
+    </GestureDetector>
   );
 }
