@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {View, Button, StyleSheet, Dimensions} from 'react-native';
+import {
+  View,
+  Button,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import DrawingPanel from '../../components/DrawingPanel';
 import {TouchedPixels} from '../../types';
 import {CreatePixelArtProps} from './CreatePixelArtStackNav';
@@ -16,7 +22,8 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     },
     toolContainer: {
       flexDirection: 'row',
-      height: '8%',
+      height: '7%',
+      borderRadius: 3,
       marginTop: '5%',
       margin: '2%',
       padding: '2%',
@@ -38,7 +45,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     const emptyArray = Array.from({length}, (_, i) => []);
     emptyArray.forEach(item => {
       for (let i = 0; i < length; i++) {
-        item.push({pixelColour: 'black'});
+        item.push({pixelColour: 'transparent'});
       }
     });
 
@@ -56,6 +63,17 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     '#9E4279',
   ]);
   const [selectedColour, setSelectedColour] = useState('#fff');
+  const [rubberSelected, setRubberSelected] = useState(false);
+  const [pencilSelected, setPencilSelected] = useState(false);
+
+  const rubberHandler = () => {
+    setRubberSelected(!rubberSelected);
+    setPencilSelected(false);
+  };
+  const pencilHandler = () => {
+    setPencilSelected(!pencilSelected);
+    setRubberSelected(false);
+  };
 
   useEffect(() => {
     navigation.setOptions({
@@ -80,13 +98,21 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
         selectedColour={selectedColour}
         touchedPixels={touchedPixels}
         setTouchedPixels={setTouchedPixels}
+        pencilSelected={pencilSelected}
       />
       <View style={styles.toolContainer}>
-        <Octicons name="pencil" style={{color: 'white', fontSize: 35}} />
-        <MaterialCommunityIcons
-          name="eraser"
-          style={{color: 'white', fontSize: 35}}
-        />
+        <TouchableOpacity onPress={() => pencilHandler()}>
+          <MaterialCommunityIcons
+            name={pencilSelected ? 'pencil' : 'pencil-outline'}
+            style={{color: 'white', fontSize: 30}}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => rubberHandler()}>
+          <MaterialCommunityIcons
+            name={rubberSelected ? 'eraser-variant' : 'eraser'}
+            style={{color: 'white', fontSize: 30}}
+          />
+        </TouchableOpacity>
       </View>
       <View style={[styles.colourContainer, {marginTop: '5%'}]}>
         {colourPalette.map(colour => {
