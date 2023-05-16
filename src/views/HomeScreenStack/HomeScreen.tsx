@@ -44,7 +44,7 @@ export default function HomeScreen() {
             title={item.title}
             likes={numberFormat(parseInt(item.likes))}
             comments={numberFormat(parseInt(item.comments))}
-            touchedPixels={JSON.parse(item.touchedPixels)}
+            touchedPixels={item.touchedPixels}
           />
         )}
       />

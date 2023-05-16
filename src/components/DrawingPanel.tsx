@@ -5,101 +5,58 @@ import {TouchedPixels} from '../types';
 
 interface PixelProps {
   width: number;
-  height: number;
-  touched: boolean;
-  index: number[];
+  pixelColour: string;
+  index: [number, number];
+  selectedColour: string;
+  touchedPixels: TouchedPixels;
   setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
 }
 
 const Pixel: React.FC<PixelProps> = ({
   width,
-  height,
-  touched,
+  pixelColour,
   index,
+  selectedColour,
+  touchedPixels,
   setTouchedPixels,
 }) => {
-  const [pixelColor, setPixelColor] = useState(touched ? '#fff' : 'black');
-
-  useEffect(() => {
-    setPixelColor(touched ? '#fff' : 'black');
-  }, [touched]);
-
-  function applyColor() {
-    setPixelColor('#fff');
-    setTouchedPixels(prev => [...prev, index] as TouchedPixels);
+  const [newPixelColour, setNewPixelColour] = useState(pixelColour);
+  function applyColour() {
+    const newPixelGrid = [...touchedPixels];
+    newPixelGrid[index[0]][index[1]].pixelColour = selectedColour;
+    setTouchedPixels(newPixelGrid);
   }
 
+  useEffect(() => {
+    setNewPixelColour(touchedPixels[index[0]][index[1]].pixelColour);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [touchedPixels]);
+
   return (
-    <TouchableWithoutFeedback delayPressOut={0} onPress={applyColor}>
+    <TouchableWithoutFeedback delayPressOut={0} onPress={applyColour}>
       <View
         style={{
           width: width,
-          height: height,
+          height: width,
           borderWidth: 0.25,
           borderColor: '#404040',
-          backgroundColor: pixelColor,
+          backgroundColor: newPixelColour,
         }}
       />
     </TouchableWithoutFeedback>
   );
 };
 
-interface CreateGridProps {
-  gridSize: number;
-  gridWidth: number;
-  touchedPixels: TouchedPixels;
-  setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
-}
-
-function createGrid({
-  gridSize,
-  gridWidth,
-  touchedPixels,
-  setTouchedPixels,
-}: CreateGridProps) {
-  const rows = [];
-  const pixelWidth = gridWidth / gridSize;
-  for (let i = 0; i < gridSize; i++) {
-    const pixels = [];
-
-    for (let j = 0; j < gridSize; j++) {
-      const touched = touchedPixels.some(
-        elem => elem[0] === i && elem[1] === j,
-      );
-      pixels.push(
-        <Pixel
-          width={pixelWidth}
-          height={pixelWidth}
-          touched={touched}
-          setTouchedPixels={setTouchedPixels}
-          index={[i, j]}
-          key={`${i}-${j}`}
-        />,
-      );
-    }
-
-    rows.push(
-      <View
-        key={`row-${i}`}
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-        }}>
-        {pixels}
-      </View>,
-    );
-  }
-  return rows;
-}
-
 export default function DrawingPanel({
+  gridSize,
+  selectedColour,
   touchedPixels,
   setTouchedPixels,
-  gridSize,
 }: {
+  gridSize: number;
+  selectedColour: string;
   touchedPixels: TouchedPixels;
   setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
-  gridSize: number;
 }) {
   const gridWidth = Dimensions.get('window').width;
   const pixelWidth = gridWidth / gridSize;
@@ -112,23 +69,47 @@ export default function DrawingPanel({
       const yPos = e.y;
       const col = Math.floor(xPos / pixelWidth);
       const row = Math.floor(yPos / pixelWidth);
-      const newPixel = [row, col];
 
-      if (!touchedPixels.some(p => p[0] === row && p[1] === col)) {
-        setTouchedPixels(prev => [...prev, newPixel] as TouchedPixels);
+      if (touchedPixels[row][col].pixelColour !== selectedColour) {
+        const newPixelGrid = [...touchedPixels];
+        newPixelGrid[row][col].pixelColour = selectedColour;
+        setTouchedPixels(newPixelGrid);
       }
     })
     .onEnd(() => {
       console.log('end');
     });
-
-  const grid = createGrid({
-    gridSize,
-    gridWidth,
-    touchedPixels,
-    setTouchedPixels,
-  });
-
+  const createPixelGrid = () => {
+    const rows = [];
+    for (let i = 0; i < gridSize; i++) {
+      const pixels = [];
+      for (let j = 0; j < gridSize; j++) {
+        let pixelColour = touchedPixels[i][j].pixelColour;
+        pixels.push(
+          <Pixel
+            width={pixelWidth}
+            pixelColour={pixelColour}
+            selectedColour={selectedColour}
+            index={[i, j]}
+            touchedPixels={touchedPixels}
+            setTouchedPixels={setTouchedPixels}
+          />,
+        );
+      }
+      rows.push(
+        <View
+          key={`row-${i}`}
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+          }}>
+          {pixels}
+        </View>,
+      );
+    }
+    return rows;
+  };
+  const grid = createPixelGrid();
   return (
     <GestureDetector gesture={panGesture}>
       <View

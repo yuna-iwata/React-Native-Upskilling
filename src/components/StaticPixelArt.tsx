@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
+import {TouchedPixels} from '../types';
 
-function Pixel({width, touched}: {width: number; touched: boolean}) {
-  const pixelColor = touched ? '#fff' : 'black';
+const Pixel = ({width, pixelColour}: {width: number; pixelColour: string}) => {
   return (
     <View
       style={{
@@ -10,49 +10,43 @@ function Pixel({width, touched}: {width: number; touched: boolean}) {
         height: width,
         borderWidth: 0.25,
         borderColor: '#404040',
-        backgroundColor: pixelColor,
+        backgroundColor: pixelColour,
       }}
     />
   );
-}
+};
 
-interface CreateGridProps {
-  gridSize: number;
-  gridWidth: number;
-  touchedPixels: [] | [number, number][];
-}
-
-export function StaticPixelArt({
+export default function StaticPixelArt({
   gridSize,
   gridWidth,
   touchedPixels,
-}: CreateGridProps) {
-  const rows = [];
+}: {
+  gridSize: number;
+  gridWidth: number;
+  touchedPixels: TouchedPixels;
+}) {
   const pixelWidth = gridWidth / gridSize;
-  for (let i = 0; i < gridSize; i++) {
-    const pixels = [];
-
-    for (let j = 0; j < gridSize; j++) {
-      const touched = touchedPixels.some(
-        elem => elem[0] === i && elem[1] === j,
-      );
-      pixels.push(
-        <Pixel width={pixelWidth} key={`${i}-${j}`} touched={touched} />,
+  const createPixelGrid = () => {
+    const rows = [];
+    for (let i = 0; i < gridSize; i++) {
+      const pixels = [];
+      for (let j = 0; j < gridSize; j++) {
+        let pixelColour = touchedPixels[i][j].pixelColour;
+        pixels.push(<Pixel width={pixelWidth} pixelColour={pixelColour} />);
+      }
+      rows.push(
+        <View
+          key={`row-${i}`}
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+          }}>
+          {pixels}
+        </View>,
       );
     }
-
-    rows.push(
-      <View
-        key={`row-${i}`}
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          height: pixelWidth,
-          width: pixelWidth,
-        }}>
-        {pixels}
-      </View>,
-    );
-  }
-  return <>{rows}</>;
+    return rows;
+  };
+  const grid = createPixelGrid();
+  return <>{grid}</>;
 }

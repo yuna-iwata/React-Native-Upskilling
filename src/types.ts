@@ -1,1 +1,5 @@
-export type TouchedPixels = [number, number][];
+export type TouchedPixels = [
+  {
+    pixelColour: string;
+  },
+][];

@@ -13,7 +13,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import PixelArt from '../../data/feed.json';
 import UserData from '../../data/userData.json';
-import {StaticPixelArt} from '../../components/StaticPixelArt';
+import StaticPixelArt from '../../components/StaticPixelArt';
 
 export default function ProfileScreen() {
   const profilePicWidth = 80; //change these from abs values
@@ -125,7 +125,7 @@ export default function ProfileScreen() {
               <StaticPixelArt
                 gridSize={gridSize}
                 gridWidth={gridWidth}
-                touchedPixels={JSON.parse(item.touchedPixels)}
+                touchedPixels={item.touchedPixels}
               />
             </View>
           )}
