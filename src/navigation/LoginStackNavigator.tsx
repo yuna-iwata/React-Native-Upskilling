@@ -2,8 +2,7 @@ import {createStackNavigator, StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
 import TabNavigator from './TabNavigator';
 import LoginScreen from '../views/UserLoginStack/LoginScreen';
-import {UserAuthContext} from '../contexts/UserAuthContext';
-import {useContext, useEffect} from 'react';
+import {useAuthContext} from '../contexts/UserAuthContext';
 
 type LoginStackParamList = {
   LoginStack: undefined;
@@ -19,13 +18,13 @@ export type LoginProps = StackScreenProps<
 const Stack = createStackNavigator<LoginStackParamList>();
 
 export default function LoginStackNav() {
-  const {loggedIn, appLoaded} = useContext(UserAuthContext);
+  const {appLoaded, isLoggedIn} = useAuthContext();
   if (!appLoaded) {
     return null;
   }
   return (
     <Stack.Navigator
-      initialRouteName={loggedIn ? 'App' : 'LoginStack'}
+      initialRouteName={isLoggedIn ? 'App' : 'LoginStack'}
       screenOptions={{
         headerShown: false,
       }}>

@@ -1,12 +1,23 @@
 import React, {createContext, useState, useEffect, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const UserAuthContext = createContext([]);
+export const UserAuthContext = createContext<UserAuthContext>({
+  isLoggedIn: false,
+  appLoaded: false,
+  login: undefined!,
+  logOut: undefined!,
+});
 // const waitFor = ms => new Promise(resolve => setTimeout(resolve, ms));
+interface UserAuthContext {
+  isLoggedIn: boolean;
+  appLoaded: boolean;
+  login: (token: string) => Promise<void>;
+  logOut: () => Promise<void>;
+}
 
-export const UserAuthProvider = ({children}) => {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+export const UserAuthProvider = ({children}: {children: React.ReactNode}) => {
+  //const [user, setUser] = useState(null);
+  const [token, setToken] = useState<string | null>(null);
   const [appLoaded, setAppLoaded] = useState(false);
   const isLoggedIn = !!token;
 
@@ -15,6 +26,7 @@ export const UserAuthProvider = ({children}) => {
       await restoreApp();
     }
     restore();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const restoreApp = useCallback(async () => {
@@ -37,9 +49,12 @@ export const UserAuthProvider = ({children}) => {
   }, []);
 
   return (
-    <UserAuthContext.Provider
-      value={{user, setUser, appLoaded, isLoggedIn, login, logOut}}>
+    <UserAuthContext.Provider value={{appLoaded, isLoggedIn, login, logOut}}>
       {children}
     </UserAuthContext.Provider>
   );
 };
+
+export function useAuthContext() {
+  return React.useContext(UserAuthContext);
+}

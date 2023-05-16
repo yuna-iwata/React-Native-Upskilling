@@ -1,9 +1,20 @@
-import {Text, Button, View, TextInput} from 'react-native';
+import {Text, Button, View, TextInput, StyleSheet} from 'react-native';
 import {UserAuthContext} from '../../contexts/UserAuthContext';
 import React, {useCallback, useContext, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
 export default function LoginScreen() {
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: 'black',
+      justifyContent: 'center',
+      alignContent: 'center',
+    },
+    text: {
+      color: 'white',
+    },
+  });
   const {login, setUser} = useContext(UserAuthContext);
   const [userName, setUserName] = useState('');
   const navigation = useNavigation();
@@ -23,7 +34,7 @@ export default function LoginScreen() {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text>login</Text>
       <TextInput placeholder="Username" onChangeText={onChangeHandler} />
       <TextInput placeholder="Password" secureTextEntry={true} />
