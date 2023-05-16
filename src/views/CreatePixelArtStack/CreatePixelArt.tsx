@@ -99,6 +99,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
         touchedPixels={touchedPixels}
         setTouchedPixels={setTouchedPixels}
         pencilSelected={pencilSelected}
+        rubberSelected={rubberSelected}
       />
       <View style={styles.toolContainer}>
         <TouchableOpacity onPress={() => pencilHandler()}>
