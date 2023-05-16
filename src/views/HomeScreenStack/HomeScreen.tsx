@@ -33,7 +33,6 @@ export default function HomeScreen() {
     // format number and add suffix
     return scaled.toFixed(1) + suffix;
   }
-  console.log(feedData[0].touchedPixels);
   return (
     <View style={[styles.container]}>
       <FlatList

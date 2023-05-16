@@ -29,6 +29,7 @@ const Pixel: React.FC<PixelProps> = ({
 
   useEffect(() => {
     setNewPixelColour(touchedPixels[index[0]][index[1]].pixelColour);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [touchedPixels]);
 
   return (
@@ -68,7 +69,6 @@ export default function DrawingPanel({
       const yPos = e.y;
       const col = Math.floor(xPos / pixelWidth);
       const row = Math.floor(yPos / pixelWidth);
-      const newPixel = [row, col];
 
       if (touchedPixels[row][col].pixelColour !== selectedColour) {
         const newPixelGrid = [...touchedPixels];
