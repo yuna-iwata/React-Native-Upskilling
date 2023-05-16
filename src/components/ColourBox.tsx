@@ -4,7 +4,7 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 export default function ColourBox({colour, setSelectedColour}) {
   const styles = StyleSheet.create({
     container: {
-      height: '70%',
+      height: '60%',
       aspectRatio: 1,
       borderRadius: 3,
       backgroundColor: colour,

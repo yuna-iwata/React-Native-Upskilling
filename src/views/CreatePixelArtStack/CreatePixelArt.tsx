@@ -1,17 +1,31 @@
 import React, {useState, useEffect} from 'react';
-import {View, Button, StyleSheet} from 'react-native';
+import {View, Button, StyleSheet, Dimensions} from 'react-native';
 import DrawingPanel from '../../components/DrawingPanel';
 import {TouchedPixels} from '../../types';
 import {CreatePixelArtProps} from './CreatePixelArtStackNav';
 import ColourBox from '../../components/ColourBox';
+import Octicons from 'react-native-vector-icons/Octicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
+  const screenWidth = Dimensions.get('window').width;
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: 'black',
     },
+    toolContainer: {
+      flexDirection: 'row',
+      height: '8%',
+      marginTop: '5%',
+      margin: '2%',
+      padding: '2%',
+      alignItems: 'center',
+      gap: screenWidth * 0.07,
+      backgroundColor: '#1a1a1a',
+    },
     colourContainer: {
+      margin: '2%',
       flexDirection: 'row',
       alignItems: 'center',
       height: '8%',
@@ -67,6 +81,13 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
         touchedPixels={touchedPixels}
         setTouchedPixels={setTouchedPixels}
       />
+      <View style={styles.toolContainer}>
+        <Octicons name="pencil" style={{color: 'white', fontSize: 35}} />
+        <MaterialCommunityIcons
+          name="eraser"
+          style={{color: 'white', fontSize: 35}}
+        />
+      </View>
       <View style={[styles.colourContainer, {marginTop: '5%'}]}>
         {colourPalette.map(colour => {
           return (
