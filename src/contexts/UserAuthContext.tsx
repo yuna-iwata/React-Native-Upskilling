@@ -1,5 +1,6 @@
 import React, {createContext, useState, useEffect, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SplashScreen from 'react-native-splash-screen';
 
 export const UserAuthContext = createContext<UserAuthContext>({
   isLoggedIn: false,
@@ -35,7 +36,10 @@ export const UserAuthProvider = ({children}: {children: React.ReactNode}) => {
     // We might do more things here if the user is logged in
     // Get user profile
     // Check for notifications
+    //setTimeout(function () {
     setAppLoaded(true);
+    SplashScreen.hide();
+    //}, 3000);
   }, []);
 
   const login = useCallback(async (newToken: string) => {
