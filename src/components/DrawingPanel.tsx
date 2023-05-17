@@ -10,6 +10,8 @@ interface PixelProps {
   selectedColour: string;
   touchedPixels: TouchedPixels;
   setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
+  pencilSelected: boolean;
+  rubberSelected: boolean;
 }
 
 const Pixel: React.FC<PixelProps> = ({
@@ -19,12 +21,20 @@ const Pixel: React.FC<PixelProps> = ({
   selectedColour,
   touchedPixels,
   setTouchedPixels,
+  pencilSelected,
+  rubberSelected,
 }) => {
   const [newPixelColour, setNewPixelColour] = useState(pixelColour);
   function applyColour() {
-    const newPixelGrid = [...touchedPixels];
-    newPixelGrid[index[0]][index[1]].pixelColour = selectedColour;
-    setTouchedPixels(newPixelGrid);
+    if (pencilSelected) {
+      const newPixelGrid = [...touchedPixels];
+      newPixelGrid[index[0]][index[1]].pixelColour = selectedColour;
+      setTouchedPixels(newPixelGrid);
+    } else if (rubberSelected) {
+      const newPixelGrid = [...touchedPixels];
+      newPixelGrid[index[0]][index[1]].pixelColour = 'transparent';
+      setTouchedPixels(newPixelGrid);
+    }
   }
 
   useEffect(() => {
@@ -52,11 +62,15 @@ export default function DrawingPanel({
   selectedColour,
   touchedPixels,
   setTouchedPixels,
+  pencilSelected,
+  rubberSelected,
 }: {
   gridSize: number;
   selectedColour: string;
   touchedPixels: TouchedPixels;
   setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
+  pencilSelected: boolean;
+  rubberSelected: boolean;
 }) {
   const gridWidth = Dimensions.get('window').width;
   const pixelWidth = gridWidth / gridSize;
@@ -70,10 +84,18 @@ export default function DrawingPanel({
       const col = Math.floor(xPos / pixelWidth);
       const row = Math.floor(yPos / pixelWidth);
 
-      if (touchedPixels[row][col].pixelColour !== selectedColour) {
-        const newPixelGrid = [...touchedPixels];
-        newPixelGrid[row][col].pixelColour = selectedColour;
-        setTouchedPixels(newPixelGrid);
+      if (pencilSelected) {
+        if (touchedPixels[row][col].pixelColour !== selectedColour) {
+          const newPixelGrid = [...touchedPixels];
+          newPixelGrid[row][col].pixelColour = selectedColour;
+          setTouchedPixels(newPixelGrid);
+        }
+      } else if (rubberSelected) {
+        if (touchedPixels[row][col].pixelColour !== 'transparent') {
+          const newPixelGrid = [...touchedPixels];
+          newPixelGrid[row][col].pixelColour = 'transparent';
+          setTouchedPixels(newPixelGrid);
+        }
       }
     })
     .onEnd(() => {
@@ -93,6 +115,8 @@ export default function DrawingPanel({
             index={[i, j]}
             touchedPixels={touchedPixels}
             setTouchedPixels={setTouchedPixels}
+            pencilSelected={pencilSelected}
+            rubberSelected={rubberSelected}
           />,
         );
       }
