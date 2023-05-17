@@ -3,11 +3,11 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Image} from 'react-native';
 
 import HomeScreen from '../views/HomeScreenStack/HomeScreen';
-import ProfileScreen from '../views/ProfileScreenStack/ProfileScreen';
 import ProfilePic from '../data/profilepic.png';
 import Feather from 'react-native-vector-icons/Feather';
 import Octicons from 'react-native-vector-icons/Octicons';
 import CreatePixelArtStackNav from '../views/CreatePixelArtStack/CreatePixelArtStackNav';
+import ProfileStackNav from '../views/ProfileScreenStack/ProfileStackNav';
 
 const Tab = createBottomTabNavigator();
 
@@ -51,11 +51,12 @@ export default function TabNavigator() {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStackNav}
         options={{
           headerStyle: {
             backgroundColor: 'black',
           },
+          headerShown: false,
           headerTintColor: 'white',
           tabBarShowLabel: false,
           tabBarStyle: {backgroundColor: 'black'},

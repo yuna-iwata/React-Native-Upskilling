@@ -15,8 +15,8 @@ export default function LoginScreen() {
       color: 'white',
     },
   });
-  const {login, setUser} = useContext(UserAuthContext);
-  const [userName, setUserName] = useState('');
+  const {login} = useContext(UserAuthContext);
+
   const navigation = useNavigation();
 
   const loginUser = async () => {
@@ -25,18 +25,13 @@ export default function LoginScreen() {
     // 3. If the response is 200, store the token in storage AND in context
     const response = {statusCode: 200, data: {token: '123-456-789'}};
     await login(response.data.token);
-    await setUser(userName);
     navigation.reset({routes: [{name: 'App'}]});
   };
-
-  function onChangeHandler(e) {
-    setUserName(e);
-  }
 
   return (
     <View style={styles.container}>
       <Text>login</Text>
-      <TextInput placeholder="Username" onChangeText={onChangeHandler} />
+      <TextInput placeholder="Username" />
       <TextInput placeholder="Password" secureTextEntry={true} />
       <Button
         title="Log In"
