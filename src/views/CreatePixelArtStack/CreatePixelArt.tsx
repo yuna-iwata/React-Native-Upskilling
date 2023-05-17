@@ -77,7 +77,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
   ]);
   const [selectedColour, setSelectedColour] = useState('#fff');
   const [rubberSelected, setRubberSelected] = useState(false);
-  const [pencilSelected, setPencilSelected] = useState(false);
+  const [pencilSelected, setPencilSelected] = useState(true);
 
   const rubberHandler = () => {
     setRubberSelected(!rubberSelected);
