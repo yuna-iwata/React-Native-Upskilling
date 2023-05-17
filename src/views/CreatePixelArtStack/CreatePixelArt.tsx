@@ -19,24 +19,37 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     container: {
       flex: 1,
       backgroundColor: 'black',
+      justifyContent: 'flex-start',
+    },
+    optionContainer: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      marginLeft: '2%',
+      marginRight: '2%',
+      marginTop: '4%',
     },
     toolContainer: {
       flexDirection: 'row',
-      height: '7%',
+      height: '20%',
       borderRadius: 3,
-      marginTop: '5%',
-      margin: '2%',
       padding: '2%',
       alignItems: 'center',
       gap: screenWidth * 0.07,
       backgroundColor: '#1a1a1a',
     },
     colourContainer: {
-      margin: '2%',
       flexDirection: 'row',
       alignItems: 'center',
-      height: '8%',
+      height: '20%',
       justifyContent: 'space-between',
+      marginTop: '2%',
+      backgroundColor: '#1a1a1a',
+      paddingLeft: '2%',
+      paddingRight: '2%',
+    },
+    colourPickerContainer: {
+      height: '40%',
+      backgroundColor: '#1a1a1a',
     },
   });
 
@@ -101,28 +114,34 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
         pencilSelected={pencilSelected}
         rubberSelected={rubberSelected}
       />
-      <View style={styles.toolContainer}>
-        <TouchableOpacity onPress={() => pencilHandler()}>
-          <MaterialCommunityIcons
-            name={pencilSelected ? 'pencil' : 'pencil-outline'}
-            style={{color: 'white', fontSize: 30}}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => rubberHandler()}>
-          <MaterialCommunityIcons
-            name={rubberSelected ? 'eraser-variant' : 'eraser'}
-            style={{color: 'white', fontSize: 30}}
-          />
-        </TouchableOpacity>
+      <View style={styles.optionContainer}>
+        <View style={styles.toolContainer}>
+          <TouchableOpacity onPress={() => pencilHandler()}>
+            <MaterialCommunityIcons
+              name={pencilSelected ? 'pencil' : 'pencil-outline'}
+              style={{color: 'white', fontSize: 30}}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => rubberHandler()}>
+            <MaterialCommunityIcons
+              name={rubberSelected ? 'eraser-variant' : 'eraser'}
+              style={{color: 'white', fontSize: 30}}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.colourContainer}>
+          {colourPalette.map(colour => {
+            return (
+              <ColourBox
+                colour={colour}
+                setSelectedColour={setSelectedColour}
+              />
+            );
+          })}
+        </View>
+        <View style={styles.colourPickerContainer}></View>
+        <Button title="clear" onPress={() => setTouchedPixels(emptyGrid)} />
       </View>
-      <View style={[styles.colourContainer, {marginTop: '5%'}]}>
-        {colourPalette.map(colour => {
-          return (
-            <ColourBox colour={colour} setSelectedColour={setSelectedColour} />
-          );
-        })}
-      </View>
-      <Button title="clear" onPress={() => setTouchedPixels(emptyGrid)} />
     </View>
   );
 }
