@@ -1,10 +1,12 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, TextInput, StyleSheet, Button} from 'react-native';
 import StaticPixelArt from '../../components/StaticPixelArt';
+import {useNavigation} from '@react-navigation/native';
 
 const gridWidth = 100; //change this to a relative value not abs
 
-export default function PostPixelArt({route}: any) {
+export default function PostPixelArt({route, navigation}: any) {
+  const [postTitle, setPostTitle] = useState('');
   const {touchedPixels, gridSize} = route.params;
   const styles = StyleSheet.create({
     container: {
@@ -27,13 +29,28 @@ export default function PostPixelArt({route}: any) {
     text: {
       color: 'white',
     },
+    input: {
+      color: 'white',
+      height: 40,
+      margin: 12,
+      width: 200,
+      padding: 10,
+    },
   });
 
+  const handleNavigate = () => {
+    navigation.navigate('Profile');
+    console.log('done');
+  };
   return (
     <View style={[styles.container]}>
       <View style={styles.postContainer}>
         <View style={styles.textContainer}>
-          <Text style={styles.text}>give ur pixel art a name...</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="give ur pixel art a name..."
+            value={postTitle}
+            onChangeText={setPostTitle}></TextInput>
         </View>
         <View
           style={{
@@ -48,6 +65,8 @@ export default function PostPixelArt({route}: any) {
           />
         </View>
       </View>
+      <Button title="drafts"></Button>
+      <Button title="post" onPress={handleNavigate}></Button>
     </View>
   );
 }

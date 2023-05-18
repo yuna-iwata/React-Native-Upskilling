@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import DrawingPanel from '../../components/DrawingPanel';
 import {TouchedPixels} from '../../types';
@@ -88,6 +89,16 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     setRubberSelected(false);
   };
 
+  const clearArtAlert = () =>
+    Alert.alert('', 'Are you sure you want to clear your artwork?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'Yes', onPress: () => setTouchedPixels(emptyGrid)},
+    ]);
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -140,7 +151,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
           })}
         </View>
         <View style={styles.colourPickerContainer}></View>
-        <Button title="clear" onPress={() => setTouchedPixels(emptyGrid)} />
+        <Button title="clear" onPress={clearArtAlert} />
       </View>
     </View>
   );

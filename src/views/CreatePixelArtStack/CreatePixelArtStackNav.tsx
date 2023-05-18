@@ -45,7 +45,7 @@ export default function CreatePixelArtStackNav() {
           },
 
           headerTintColor: 'white',
-          headerTitle: 'Post', // add this line
+          headerTitle: 'Post',
         }}
       />
     </Stack.Navigator>
