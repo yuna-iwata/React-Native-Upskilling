@@ -4,9 +4,14 @@ import {Button} from 'react-native';
 import ProfileScreen from './ProfileScreen';
 import ProfilePost from './ProfilePost';
 import {useAuthContext} from '../../contexts/UserAuthContext';
+import {TouchedPixels} from '../../types';
 
 type ProfileStackParamList = {
-  Profile: undefined;
+  Profile: {
+    touchedPixels: null | TouchedPixels;
+    newArtGridSize: null | number;
+    postTitle: null | string;
+  };
   Post: undefined;
 };
 
@@ -18,7 +23,7 @@ export type ProfileStackProps = StackScreenProps<
 
 const Stack = createStackNavigator<ProfileStackParamList>();
 
-export default function ProfileStackNav({navigation}) {
+export default function ProfileStackNav({navigation}: ProfileStackProps) {
   const {logOut} = useAuthContext();
 
   return (
