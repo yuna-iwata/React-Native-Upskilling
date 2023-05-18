@@ -3,6 +3,7 @@ import {View, TextInput, StyleSheet, Button} from 'react-native';
 import StaticPixelArt from '../../components/StaticPixelArt';
 import {useNavigation} from '@react-navigation/native';
 import {TouchedPixels} from '../../types';
+import {CreatePixelArtProps} from './CreatePixelArtStackNav';
 
 const gridWidth = 100; //change this to a relative value not abs
 
@@ -15,6 +16,7 @@ export default function PostPixelArt({
   route,
   navigation,
 }: {
+  route: CreatePixelArtProps;
   navigation: newArtParams;
 }) {
   const [postTitle, setPostTitle] = useState('');

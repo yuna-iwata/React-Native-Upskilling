@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -14,9 +14,11 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import PixelArt from '../../data/feed.json';
 import UserData from '../../data/userData.json';
 import StaticPixelArt from '../../components/StaticPixelArt';
+import {ProfileStackProps} from './ProfileStackNav';
 
-export default function ProfileScreen({route}) {
+export default function ProfileScreen({route}: ProfileStackProps) {
   const {touchedPixels, newArtGridSize, postTitle} = route.params;
+
   const profilePicWidth = 80; //change these from abs values
   const styles = StyleSheet.create({
     container: {
@@ -72,11 +74,30 @@ export default function ProfileScreen({route}) {
 
   const gridWidth = Dimensions.get('window').width / 3; //change this to a relative value not abs
   const gridSize = 15;
-  console.log(touchedPixels);
 
-  const UsersPixelArt = PixelArt.filter(item => {
+  const dummyUsersPixelArt = PixelArt.filter(item => {
     return item.username === 'ghost';
   }); //filter out correct users posts
+  const [usersPixelArt, setUsersPixelArt] = useState(dummyUsersPixelArt);
+
+  useEffect(() => {
+    if (postTitle) {
+      const formatNewArt = {
+        id: '10',
+        username: 'ghost',
+        title: postTitle,
+        likes: '0',
+        comments: '0',
+        touchedPixels: touchedPixels,
+      };
+      const newUsersArt = [...usersPixelArt];
+      newUsersArt.push(formatNewArt);
+      console.log('sdfsdfsdfds', newUsersArt);
+      setUsersPixelArt(newUsersArt);
+    }
+  }, []);
+
+  useEffect(() => {}, [postTitle, touchedPixels, newArtGridSize]);
 
   const UsersData = UserData.filter(item => {
     return item.username === 'ghost';
@@ -120,7 +141,7 @@ export default function ProfileScreen({route}) {
       </View>
       <View style={styles.postContainer}>
         <FlatList
-          data={UsersPixelArt}
+          data={usersPixelArt}
           numColumns={3}
           renderItem={({item}) => (
             <View style={{width: gridWidth, height: gridWidth}}>
