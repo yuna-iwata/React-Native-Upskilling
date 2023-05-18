@@ -2,10 +2,21 @@ import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, Button} from 'react-native';
 import StaticPixelArt from '../../components/StaticPixelArt';
 import {useNavigation} from '@react-navigation/native';
+import {TouchedPixels} from '../../types';
 
 const gridWidth = 100; //change this to a relative value not abs
 
-export default function PostPixelArt({route, navigation}: any) {
+type newArtParams = {
+  touchedPixels: TouchedPixels | null;
+  gridSize: number | null;
+};
+
+export default function PostPixelArt({
+  route,
+  navigation,
+}: {
+  navigation: newArtParams;
+}) {
   const [postTitle, setPostTitle] = useState('');
   const {touchedPixels, gridSize} = route.params;
   const styles = StyleSheet.create({

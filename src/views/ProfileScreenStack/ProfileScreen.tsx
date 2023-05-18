@@ -15,8 +15,8 @@ import PixelArt from '../../data/feed.json';
 import UserData from '../../data/userData.json';
 import StaticPixelArt from '../../components/StaticPixelArt';
 
-export default function ProfileScreen({route}: any) {
-  const {touchedPixels, newArtGridSize} = route.params;
+export default function ProfileScreen({route}) {
+  const {touchedPixels, newArtGridSize, postTitle} = route.params;
   const profilePicWidth = 80; //change these from abs values
   const styles = StyleSheet.create({
     container: {
