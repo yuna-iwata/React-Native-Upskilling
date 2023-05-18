@@ -39,8 +39,14 @@ export default function PostPixelArt({route, navigation}: any) {
   });
 
   const handleNavigate = () => {
-    navigation.navigate('Profile');
-    console.log('done');
+    navigation.navigate('Profile', {
+      screen: 'Profile',
+      params: {
+        touchedPixels: touchedPixels,
+        newArtGridSize: gridSize,
+        postTitle: postTitle,
+      },
+    });
   };
   return (
     <View style={[styles.container]}>

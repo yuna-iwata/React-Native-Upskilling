@@ -15,7 +15,8 @@ import PixelArt from '../../data/feed.json';
 import UserData from '../../data/userData.json';
 import StaticPixelArt from '../../components/StaticPixelArt';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({route}: any) {
+  const {touchedPixels, newArtGridSize} = route.params;
   const profilePicWidth = 80; //change these from abs values
   const styles = StyleSheet.create({
     container: {
@@ -71,6 +72,7 @@ export default function ProfileScreen() {
 
   const gridWidth = Dimensions.get('window').width / 3; //change this to a relative value not abs
   const gridSize = 15;
+  console.log(touchedPixels);
 
   const UsersPixelArt = PixelArt.filter(item => {
     return item.username === 'ghost';

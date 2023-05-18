@@ -26,6 +26,11 @@ export default function ProfileStackNav({navigation}) {
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
+        initialParams={{
+          touchedPixels: null,
+          newArtGridSize: null,
+          postTitle: null,
+        }}
         options={{
           headerStyle: {
             backgroundColor: 'black',
