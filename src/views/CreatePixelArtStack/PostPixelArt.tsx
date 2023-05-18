@@ -52,7 +52,7 @@ export default function PostPixelArt({
   });
 
   const handleNavigate = () => {
-    navigation.navigate('Profile', {
+    navigation.navigate('ProfileStack', {
       screen: 'Profile',
       params: {
         touchedPixels: touchedPixels,

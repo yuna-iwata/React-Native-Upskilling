@@ -83,7 +83,6 @@ export default function ProfileScreen({route}: ProfileStackProps) {
   useEffect(() => {
     if (postTitle) {
       const formatNewArt = {
-        id: '10',
         username: 'ghost',
         title: postTitle,
         likes: '0',
@@ -92,12 +91,9 @@ export default function ProfileScreen({route}: ProfileStackProps) {
       };
       const newUsersArt = [...usersPixelArt];
       newUsersArt.push(formatNewArt);
-      console.log('sdfsdfsdfds', newUsersArt);
       setUsersPixelArt(newUsersArt);
     }
-  }, []);
-
-  useEffect(() => {}, [postTitle, touchedPixels, newArtGridSize]);
+  }, [touchedPixels, newArtGridSize, postTitle]);
 
   const UsersData = UserData.filter(item => {
     return item.username === 'ghost';

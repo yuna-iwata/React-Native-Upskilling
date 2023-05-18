@@ -31,7 +31,7 @@ export default function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Create"
+        name="CreateStack"
         component={CreatePixelArtStackNav}
         options={{
           headerStyle: {
@@ -50,7 +50,7 @@ export default function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="ProfileStack"
         component={ProfileStackNav}
         options={{
           headerStyle: {
