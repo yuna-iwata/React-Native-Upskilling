@@ -8,7 +8,8 @@ export const UserAuthContext = createContext<UserAuthContext>({
   login: undefined!,
   logOut: undefined!,
 });
-// const waitFor = ms => new Promise(resolve => setTimeout(resolve, ms));
+const waitFor = (ms: number) =>
+  new Promise(resolve => setTimeout(() => resolve(undefined), ms));
 interface UserAuthContext {
   isLoggedIn: boolean;
   appLoaded: boolean;
@@ -36,10 +37,9 @@ export const UserAuthProvider = ({children}: {children: React.ReactNode}) => {
     // We might do more things here if the user is logged in
     // Get user profile
     // Check for notifications
-    //setTimeout(function () {
+    await waitFor(1000);
     setAppLoaded(true);
     SplashScreen.hide();
-    //}, 3000);
   }, []);
 
   const login = useCallback(async (newToken: string) => {
