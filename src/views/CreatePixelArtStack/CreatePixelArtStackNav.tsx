@@ -1,9 +1,11 @@
 import {createStackNavigator, StackScreenProps} from '@react-navigation/stack';
+import {NavigatorScreenParams} from '@react-navigation/native';
 import React from 'react';
 import {Button} from 'react-native';
 import CreatePixelArt from './CreatePixelArt';
 import PostPixelArt from './PostPixelArt';
 import {TouchedPixels} from '../../types';
+import {ProfileStackParamList} from '../ProfileScreenStack/ProfileStackNav';
 
 type CreatePixelArtStackParamList = {
   Create: undefined;
@@ -11,11 +13,16 @@ type CreatePixelArtStackParamList = {
     touchedPixels: TouchedPixels;
     gridSize: number;
   };
+  ProfileStack: NavigatorScreenParams<ProfileStackParamList>;
 };
 
 export type CreatePixelArtProps = StackScreenProps<
   CreatePixelArtStackParamList,
-  'Create',
+  'Create'
+>;
+
+export type PostPixelArtProps = StackScreenProps<
+  CreatePixelArtStackParamList,
   'Post'
 >;
 

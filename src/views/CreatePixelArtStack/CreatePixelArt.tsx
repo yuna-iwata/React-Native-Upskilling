@@ -11,7 +11,6 @@ import DrawingPanel from '../../components/DrawingPanel';
 import {TouchedPixels} from '../../types';
 import {CreatePixelArtProps} from './CreatePixelArtStackNav';
 import ColourBox from '../../components/ColourBox';
-import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
@@ -56,7 +55,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
 
   const gridSize = 15;
   const generateEmptyGrid = (length: number) => {
-    const emptyArray = Array.from({length}, (_, i) => []);
+    const emptyArray: TouchedPixels = Array.from({length}, (_, i) => []);
     emptyArray.forEach(item => {
       for (let i = 0; i < length; i++) {
         item.push({pixelColour: 'transparent'});

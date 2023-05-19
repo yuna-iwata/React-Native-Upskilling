@@ -6,11 +6,11 @@ import ProfilePost from './ProfilePost';
 import {useAuthContext} from '../../contexts/UserAuthContext';
 import {TouchedPixels} from '../../types';
 
-type ProfileStackParamList = {
+export type ProfileStackParamList = {
   Profile: {
-    touchedPixels: null | TouchedPixels;
-    newArtGridSize: null | number;
-    postTitle: null | string;
+    touchedPixels: TouchedPixels;
+    newArtGridSize: number;
+    postTitle: string;
   };
   Post: undefined;
 };
