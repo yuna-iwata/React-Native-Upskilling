@@ -7,10 +7,11 @@ import PostPixelArt from './PostPixelArt';
 import {TouchedPixels} from '../../types';
 import {ProfileStackParamList} from '../ProfileScreenStack/ProfileStackNav';
 
-type CreatePixelArtStackParamList = {
+export type CreatePixelArtStackParamList = {
   Create: undefined;
   Post: {
     touchedPixels: TouchedPixels;
+    setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
     gridSize: number;
   };
   ProfileStack: NavigatorScreenParams<ProfileStackParamList>;

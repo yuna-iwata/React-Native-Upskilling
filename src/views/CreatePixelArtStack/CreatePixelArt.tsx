@@ -13,6 +13,17 @@ import {CreatePixelArtProps} from './CreatePixelArtStackNav';
 import ColourBox from '../../components/ColourBox';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+export const generateEmptyGrid = (length: number) => {
+  const emptyArray: TouchedPixels = Array.from({length}, (_, i) => []);
+  emptyArray.forEach(item => {
+    for (let i = 0; i < length; i++) {
+      item.push({pixelColour: 'transparent'});
+    }
+  });
+
+  return emptyArray;
+};
+
 export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
   const screenWidth = Dimensions.get('window').width;
   const styles = StyleSheet.create({
@@ -54,16 +65,6 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
   });
 
   const gridSize = 15;
-  const generateEmptyGrid = (length: number) => {
-    const emptyArray: TouchedPixels = Array.from({length}, (_, i) => []);
-    emptyArray.forEach(item => {
-      for (let i = 0; i < length; i++) {
-        item.push({pixelColour: 'transparent'});
-      }
-    });
-
-    return emptyArray;
-  };
   const emptyGrid = generateEmptyGrid(gridSize);
   const [touchedPixels, setTouchedPixels] = useState<TouchedPixels>(emptyGrid);
   const [colourPalette, setColourPalette] = useState([
@@ -105,6 +106,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
           onPress={() =>
             navigation.navigate('Post', {
               touchedPixels: touchedPixels,
+              setTouchedPixels: setTouchedPixels,
               gridSize: gridSize,
             })
           }

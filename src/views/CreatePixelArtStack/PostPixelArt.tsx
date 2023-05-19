@@ -1,13 +1,19 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, Button} from 'react-native';
 import StaticPixelArt from '../../components/StaticPixelArt';
-import {PostPixelArtProps} from './CreatePixelArtStackNav';
+import {
+  CreatePixelArtStackParamList,
+  PostPixelArtProps,
+} from './CreatePixelArtStackNav';
+import {generateEmptyGrid} from './CreatePixelArt';
+import type {RouteProp} from '@react-navigation/native';
+import {TouchedPixels} from '../../types';
 
 const gridWidth = 100; //change this to a relative value not abs
 
 export default function PostPixelArt({route, navigation}: PostPixelArtProps) {
   const [postTitle, setPostTitle] = useState('');
-  const {touchedPixels, gridSize} = route.params;
+  const {touchedPixels, gridSize, setTouchedPixels} = route.params;
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -39,6 +45,10 @@ export default function PostPixelArt({route, navigation}: PostPixelArtProps) {
   });
 
   const handleNavigate = () => {
+    navigation.navigate('Create');
+    const emptyGrid = generateEmptyGrid(15);
+    console.log(emptyGrid);
+    setTouchedPixels(emptyGrid);
     navigation.navigate('ProfileStack', {
       screen: 'Profile',
       params: {
