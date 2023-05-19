@@ -8,9 +8,9 @@ import {TouchedPixels} from '../../types';
 
 export type ProfileStackParamList = {
   Profile: {
-    touchedPixels: TouchedPixels;
-    newArtGridSize: number;
-    postTitle: string;
+    touchedPixels: TouchedPixels | null;
+    newArtGridSize: number | null;
+    postTitle: string | null;
   };
   Post: undefined;
 };
