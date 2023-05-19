@@ -1,21 +1,29 @@
 import {createStackNavigator, StackScreenProps} from '@react-navigation/stack';
+import {NavigatorScreenParams} from '@react-navigation/native';
 import React from 'react';
 import {Button} from 'react-native';
 import CreatePixelArt from './CreatePixelArt';
 import PostPixelArt from './PostPixelArt';
 import {TouchedPixels} from '../../types';
+import {ProfileStackParamList} from '../ProfileScreenStack/ProfileStackNav';
 
-type CreatePixelArtStackParamList = {
+export type CreatePixelArtStackParamList = {
   Create: undefined;
   Post: {
     touchedPixels: TouchedPixels;
+    setTouchedPixels: React.Dispatch<React.SetStateAction<TouchedPixels>>;
     gridSize: number;
   };
+  ProfileStack: NavigatorScreenParams<ProfileStackParamList>;
 };
 
 export type CreatePixelArtProps = StackScreenProps<
   CreatePixelArtStackParamList,
-  'Create',
+  'Create'
+>;
+
+export type PostPixelArtProps = StackScreenProps<
+  CreatePixelArtStackParamList,
   'Post'
 >;
 
@@ -45,7 +53,7 @@ export default function CreatePixelArtStackNav() {
           },
 
           headerTintColor: 'white',
-          headerTitle: 'Post', // add this line
+          headerTitle: 'Post',
         }}
       />
     </Stack.Navigator>

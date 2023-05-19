@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,11 +11,15 @@ import PixelBg from '../../data/pixelbg.png';
 import ProfilePic from '../../data/profilepic.png';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import PixelArt from '../../data/feed.json';
 import UserData from '../../data/userData.json';
 import StaticPixelArt from '../../components/StaticPixelArt';
+import {ProfileStackProps} from './ProfileStackNav';
+import {usePostContext} from '../../contexts/PostContext';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({route}: ProfileStackProps) {
+  const {touchedPixels, newArtGridSize, postTitle} = route.params;
+  const {usersPixelArt, setUsersPixelArt} = usePostContext();
+
   const profilePicWidth = 80; //change these from abs values
   const styles = StyleSheet.create({
     container: {
@@ -72,9 +76,22 @@ export default function ProfileScreen() {
   const gridWidth = Dimensions.get('window').width / 3; //change this to a relative value not abs
   const gridSize = 15;
 
-  const UsersPixelArt = PixelArt.filter(item => {
-    return item.username === 'ghost';
-  }); //filter out correct users posts
+  useEffect(() => {
+    if (postTitle) {
+      const formatNewArt = {
+        id: Math.random().toString(32).slice(2),
+        username: 'ghost',
+        title: postTitle,
+        likes: '0',
+        comments: '0',
+        touchedPixels: touchedPixels,
+      };
+      const newUsersArt = [...usersPixelArt];
+      console.log(newUsersArt);
+      newUsersArt.push(formatNewArt);
+      setUsersPixelArt(newUsersArt);
+    }
+  }, [touchedPixels, newArtGridSize, postTitle]);
 
   const UsersData = UserData.filter(item => {
     return item.username === 'ghost';
@@ -118,7 +135,7 @@ export default function ProfileScreen() {
       </View>
       <View style={styles.postContainer}>
         <FlatList
-          data={UsersPixelArt}
+          data={usersPixelArt}
           numColumns={3}
           renderItem={({item}) => (
             <View style={{width: gridWidth, height: gridWidth}}>

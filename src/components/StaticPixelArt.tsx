@@ -32,7 +32,13 @@ export default function StaticPixelArt({
       const pixels = [];
       for (let j = 0; j < gridSize; j++) {
         let pixelColour = touchedPixels[i][j].pixelColour;
-        pixels.push(<Pixel width={pixelWidth} pixelColour={pixelColour} />);
+        pixels.push(
+          <Pixel
+            width={pixelWidth}
+            pixelColour={pixelColour}
+            key={`pixel-${i}-${j}`}
+          />,
+        );
       }
       rows.push(
         <View
