@@ -11,13 +11,14 @@ import PixelBg from '../../data/pixelbg.png';
 import ProfilePic from '../../data/profilepic.png';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import PixelArt from '../../data/feed.json';
 import UserData from '../../data/userData.json';
 import StaticPixelArt from '../../components/StaticPixelArt';
 import {ProfileStackProps} from './ProfileStackNav';
+import {usePostContext} from '../../contexts/PostContext';
 
 export default function ProfileScreen({route}: ProfileStackProps) {
   const {touchedPixels, newArtGridSize, postTitle} = route.params;
+  const {usersPixelArt, setUsersPixelArt} = usePostContext();
 
   const profilePicWidth = 80; //change these from abs values
   const styles = StyleSheet.create({
@@ -75,11 +76,6 @@ export default function ProfileScreen({route}: ProfileStackProps) {
   const gridWidth = Dimensions.get('window').width / 3; //change this to a relative value not abs
   const gridSize = 15;
 
-  const dummyUsersPixelArt = PixelArt.filter(item => {
-    return item.username === 'ghost';
-  }); //filter out correct users posts
-  const [usersPixelArt, setUsersPixelArt] = useState(dummyUsersPixelArt);
-
   useEffect(() => {
     if (postTitle) {
       const formatNewArt = {
@@ -90,6 +86,7 @@ export default function ProfileScreen({route}: ProfileStackProps) {
         touchedPixels: touchedPixels,
       };
       const newUsersArt = [...usersPixelArt];
+      console.log(newUsersArt);
       newUsersArt.push(formatNewArt);
       setUsersPixelArt(newUsersArt);
     }
