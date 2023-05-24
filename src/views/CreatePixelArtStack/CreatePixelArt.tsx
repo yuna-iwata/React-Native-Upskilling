@@ -12,6 +12,11 @@ import {TouchedPixels} from '../../types';
 import {CreatePixelArtProps} from './CreatePixelArtStackNav';
 import ColourBox from '../../components/ColourBox';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import ColorPicker, {
+  Panel1,
+  HueSlider,
+  Swatches,
+} from 'reanimated-color-picker';
 
 export const generateEmptyGrid = (length: number) => {
   const emptyArray: TouchedPixels = Array.from({length}, (_, i) => []);
@@ -62,6 +67,10 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
       height: '50%',
       backgroundColor: '#1a1a1a',
     },
+    colourPicker: {
+      paddingLeft: '2%',
+      paddingRight: '2%',
+    },
   });
 
   const gridSize = 15;
@@ -87,6 +96,11 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
   const pencilHandler = () => {
     setPencilSelected(!pencilSelected);
     setRubberSelected(false);
+  };
+
+  const onSelectColor = ({hex}) => {
+    // do something with the selected color.
+    console.log(hex);
   };
 
   const clearArtAlert = () =>
@@ -157,7 +171,25 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
             );
           })}
         </View>
-        <View style={styles.colourPickerContainer}></View>
+        <View style={styles.colourPickerContainer}>
+          <ColorPicker>
+            <View style={styles.colourPicker}>
+              <Swatches
+                colors={[
+                  '#9E4242',
+                  '#9E5842',
+                  '#9E9542',
+                  '#429E4B',
+                  '#42789E',
+                  '#70429E',
+                  '#9E4279',
+                ]}
+                style={{borderRadius: -2}}
+              />
+              <Panel1 />
+            </View>
+          </ColorPicker>
+        </View>
       </View>
     </View>
   );
