@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Alert,
+  ScrollView,
 } from 'react-native';
 import DrawingPanel from '../../components/DrawingPanel';
 import {TouchedPixels} from '../../types';
@@ -64,6 +65,8 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
       paddingRight: '2%',
     },
     colourPickerContainer: {
+      marginTop: '2%',
+      paddingTop: '3%',
       height: '50%',
       backgroundColor: '#1a1a1a',
     },
@@ -100,6 +103,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
 
   const onSelectColor = ({hex}) => {
     // do something with the selected color.
+    setSelectedColour(hex);
     console.log(hex);
   };
 
@@ -161,18 +165,8 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.colourContainer}>
-          {colourPalette.map(colour => {
-            return (
-              <ColourBox
-                colour={colour}
-                setSelectedColour={setSelectedColour}
-              />
-            );
-          })}
-        </View>
-        <View style={styles.colourPickerContainer}>
-          <ColorPicker>
+        <ScrollView style={styles.colourPickerContainer}>
+          <ColorPicker onComplete={onSelectColor}>
             <View style={styles.colourPicker}>
               <Swatches
                 colors={[
@@ -189,7 +183,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
               <Panel1 />
             </View>
           </ColorPicker>
-        </View>
+        </ScrollView>
       </View>
     </View>
   );
