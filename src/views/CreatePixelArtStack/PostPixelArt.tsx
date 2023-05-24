@@ -27,6 +27,12 @@ export default function PostPixelArt({route, navigation}: PostPixelArtProps) {
     textContainer: {
       height: gridWidth,
     },
+    tagsContainer: {
+      height: 100,
+      backgroundColor: 'white',
+      borderWidth: 2,
+      borderColor: 'white',
+    },
     text: {
       color: 'white',
     },
@@ -75,6 +81,7 @@ export default function PostPixelArt({route, navigation}: PostPixelArtProps) {
           />
         </View>
       </View>
+      <View style={styles.tagsContainer} />
       <Button title="drafts"></Button>
       <Button title="post" onPress={handleNavigate}></Button>
     </View>
