@@ -13,11 +13,7 @@ interface PostContext {
 }
 
 export const PostProvider = ({children}: {children: React.ReactNode}) => {
-  const dummyUsersPixelArt = PixelArt.filter(item => {
-    return item.username === 'ghost';
-  }); //filter out correct users posts
-  const [usersPixelArt, setUsersPixelArt] = useState(dummyUsersPixelArt);
-  console.log('yoooo', usersPixelArt);
+  const [usersPixelArt, setUsersPixelArt] = useState(PixelArt);
 
   return (
     <PostContext.Provider value={{usersPixelArt, setUsersPixelArt}}>

@@ -37,7 +37,7 @@ export const UserAuthProvider = ({children}: {children: React.ReactNode}) => {
     // We might do more things here if the user is logged in
     // Get user profile
     // Check for notifications
-    await waitFor(1000);
+    await waitFor(500);
     setAppLoaded(true);
     SplashScreen.hide();
   }, []);

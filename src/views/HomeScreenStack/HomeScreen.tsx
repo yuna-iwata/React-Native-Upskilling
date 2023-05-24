@@ -2,8 +2,10 @@ import React from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
 import Post from '../../components/Post';
 import feedData from '../../data/feed.json';
+import {usePostContext} from '../../contexts/PostContext';
 
 export default function HomeScreen() {
+  const {usersPixelArt} = usePostContext();
   const styles = StyleSheet.create({
     container: {
       height: '100%',
@@ -36,7 +38,7 @@ export default function HomeScreen() {
   return (
     <View style={[styles.container]}>
       <FlatList
-        data={feedData}
+        data={usersPixelArt}
         numColumns={2}
         renderItem={({item}) => (
           <Post
