@@ -47,7 +47,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     },
     toolContainer: {
       flexDirection: 'row',
-      height: '20%',
+      height: '16%',
       borderRadius: 3,
       padding: '2%',
       alignItems: 'center',
@@ -67,8 +67,8 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     colourPickerContainer: {
       marginTop: '2%',
       paddingTop: '3%',
-      height: '50%',
       backgroundColor: '#1a1a1a',
+      height: '78%',
     },
     colourPicker: {
       paddingLeft: '2%',
@@ -149,23 +149,24 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
           <TouchableOpacity onPress={() => pencilHandler()}>
             <MaterialCommunityIcons
               name={pencilSelected ? 'pencil' : 'pencil-outline'}
-              style={{color: 'white', fontSize: 30}}
+              style={{color: 'white', fontSize: 25}}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => rubberHandler()}>
             <MaterialCommunityIcons
               name={rubberSelected ? 'eraser-variant' : 'eraser'}
-              style={{color: 'white', fontSize: 30}}
+              style={{color: 'white', fontSize: 25}}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => clearArtAlert()}>
             <MaterialCommunityIcons
               name={'trash-can-outline'}
-              style={{color: 'white', fontSize: 30}}
+              style={{color: 'white', fontSize: 25}}
             />
           </TouchableOpacity>
         </View>
-        <ScrollView style={styles.colourPickerContainer}>
+        {/* <ScrollView style={styles.colourPickerContainer}> */}
+        <View style={styles.colourPickerContainer}>
           <ColorPicker onComplete={onSelectColor}>
             <View style={styles.colourPicker}>
               <Swatches
@@ -178,12 +179,14 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
                   '#70429E',
                   '#9E4279',
                 ]}
-                style={{borderRadius: -2}}
+                swatchStyle={{borderRadius: 3}}
+                style={{marginBottom: -5}}
               />
-              <Panel1 />
+              <Panel1 style={{height: 150}} />
             </View>
           </ColorPicker>
-        </ScrollView>
+        </View>
+        {/* </ScrollView> */}
       </View>
     </View>
   );
