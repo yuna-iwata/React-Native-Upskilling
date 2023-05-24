@@ -59,7 +59,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
       paddingRight: '2%',
     },
     colourPickerContainer: {
-      height: '40%',
+      height: '50%',
       backgroundColor: '#1a1a1a',
     },
   });
@@ -140,6 +140,12 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
               style={{color: 'white', fontSize: 30}}
             />
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => clearArtAlert()}>
+            <MaterialCommunityIcons
+              name={'trash-can-outline'}
+              style={{color: 'white', fontSize: 30}}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.colourContainer}>
           {colourPalette.map(colour => {
@@ -152,7 +158,6 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
           })}
         </View>
         <View style={styles.colourPickerContainer}></View>
-        <Button title="clear" onPress={clearArtAlert} />
       </View>
     </View>
   );
