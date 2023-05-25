@@ -75,6 +75,7 @@ export default function DrawingPanel({
   const gridWidth = Dimensions.get('window').width;
   const pixelWidth = gridWidth / gridSize;
   const panGesture = Gesture.Pan()
+    .runOnJS(true)
     .onStart(() => {
       console.log('start');
     })
@@ -109,6 +110,7 @@ export default function DrawingPanel({
         let pixelColour = touchedPixels[i][j].pixelColour;
         pixels.push(
           <Pixel
+            key={`pixel-${i}-${j}`}
             width={pixelWidth}
             pixelColour={pixelColour}
             selectedColour={selectedColour}

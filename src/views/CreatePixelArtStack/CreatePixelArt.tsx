@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Alert,
   ScrollView,
+  Modal,
+  Text,
 } from 'react-native';
 import DrawingPanel from '../../components/DrawingPanel';
 import {TouchedPixels} from '../../types';
@@ -32,7 +34,31 @@ export const generateEmptyGrid = (length: number) => {
 
 export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
   const screenWidth = Dimensions.get('window').width;
+  const screenHeight = Dimensions.get('window').height;
   const styles = StyleSheet.create({
+    modalView: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: [
+        {translateX: -screenWidth / 4},
+        {translateY: -screenHeight / 8},
+      ],
+      backgroundColor: 'white',
+      borderRadius: 10,
+      padding: 35,
+      alignItems: 'center',
+      shadowColor: '#000',
+      width: screenWidth / 2,
+      height: screenHeight / 4,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
     container: {
       flex: 1,
       backgroundColor: 'black',
@@ -91,6 +117,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
   const [selectedColour, setSelectedColour] = useState('#fff');
   const [rubberSelected, setRubberSelected] = useState(false);
   const [pencilSelected, setPencilSelected] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const rubberHandler = () => {
     setRubberSelected(!rubberSelected);
@@ -117,6 +144,10 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
       {text: 'Yes', onPress: () => setTouchedPixels(emptyGrid)},
     ]);
 
+  const gridHandler = () => {
+    setModalVisible(true);
+  };
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -135,7 +166,14 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
   }, [navigation, touchedPixels]);
 
   return (
-    <View style={[styles.container]}>
+    <View style={styles.container}>
+      <View style={styles.centeredView}>
+        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <View style={styles.modalView}>
+            <Text>grid size</Text>
+          </View>
+        </Modal>
+      </View>
       <DrawingPanel
         gridSize={gridSize}
         selectedColour={selectedColour}
@@ -164,8 +202,13 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
               style={{color: 'white', fontSize: 25}}
             />
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => gridHandler()}>
+            <MaterialCommunityIcons
+              name={'view-grid-outline'}
+              style={{color: 'white', fontSize: 25}}
+            />
+          </TouchableOpacity>
         </View>
-        {/* <ScrollView style={styles.colourPickerContainer}> */}
         <View style={styles.colourPickerContainer}>
           <ColorPicker onComplete={onSelectColor}>
             <View style={styles.colourPicker}>
@@ -186,7 +229,6 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
             </View>
           </ColorPicker>
         </View>
-        {/* </ScrollView> */}
       </View>
     </View>
   );
