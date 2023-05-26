@@ -129,7 +129,6 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     },
   });
 
-  //const gridSize = 15;
   const [gridSize, setGridSize] = useState(15);
   const [emptyGrid, setEmptyGrid] = useState(generateEmptyGrid(gridSize));
   const [touchedPixels, setTouchedPixels] = useState<TouchedPixels>(emptyGrid);
