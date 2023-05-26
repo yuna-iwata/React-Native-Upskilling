@@ -146,6 +146,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
   const [rubberSelected, setRubberSelected] = useState(false);
   const [pencilSelected, setPencilSelected] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
+  const [scrollPickerIndex, setScrollPickerIndex] = useState(1);
 
   const rubberHandler = () => {
     setRubberSelected(!rubberSelected);
@@ -202,7 +203,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
             <ScrollView style={styles.scrollPicker}>
               <ScrollPicker
                 dataSource={['10', '15', '20', '30']}
-                selectedIndex={1}
+                selectedIndex={scrollPickerIndex}
                 renderItem={(data, index) => {
                   return <Text>{data}</Text>;
                 }}
@@ -217,6 +218,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
                     const newEmptyGrid = generateEmptyGrid(data);
                     setTouchedPixels(newEmptyGrid);
                   }
+                  setScrollPickerIndex(selectedIndex);
                 }}
                 wrapperHeight={80}
                 wrapperColor="#FFFFFF"
