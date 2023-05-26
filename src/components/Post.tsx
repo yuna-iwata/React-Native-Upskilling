@@ -31,6 +31,7 @@ interface PostProps {
   title: string;
   likes: string;
   comments: string;
+  gridSize: number;
   touchedPixels: TouchedPixels;
 }
 
@@ -40,12 +41,13 @@ export default function Post({
   likes,
   comments,
   touchedPixels,
+  gridSize,
 }: PostProps) {
   return (
     <View style={styles.container}>
       <View style={styles.imageWrapper}>
         <StaticPixelArt
-          gridSize={15}
+          gridSize={gridSize}
           gridWidth={160} //might cause problems in the future
           touchedPixels={touchedPixels}
         />

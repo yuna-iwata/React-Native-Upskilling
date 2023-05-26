@@ -84,7 +84,6 @@ export default function DrawingPanel({
       const yPos = e.y;
       const col = Math.floor(xPos / pixelWidth);
       const row = Math.floor(yPos / pixelWidth);
-
       if (pencilSelected) {
         if (touchedPixels[row][col].pixelColour !== selectedColour) {
           const newPixelGrid = [...touchedPixels];
@@ -108,6 +107,7 @@ export default function DrawingPanel({
       const pixels = [];
       for (let j = 0; j < gridSize; j++) {
         let pixelColour = touchedPixels[i][j].pixelColour;
+        //console.log('drawingpanel', touchedPixels[i][j].pixelColour);
         pixels.push(
           <Pixel
             key={`pixel-${i}-${j}`}

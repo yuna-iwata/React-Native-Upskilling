@@ -8,5 +8,6 @@ export type Post = {
   title: string;
   likes: string;
   comments: string;
+  gridSize: number;
   touchedPixels: TouchedPixels;
 };

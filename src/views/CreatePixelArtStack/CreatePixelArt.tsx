@@ -6,7 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Alert,
-  ScrollView,
+  Pressable,
   Modal,
   Text,
 } from 'react-native';
@@ -14,12 +14,14 @@ import DrawingPanel from '../../components/DrawingPanel';
 import {TouchedPixels} from '../../types';
 import {CreatePixelArtProps} from './CreatePixelArtStackNav';
 import ColourBox from '../../components/ColourBox';
+import ScrollPicker from 'react-native-wheel-scrollview-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ColorPicker, {
   Panel1,
   HueSlider,
   Swatches,
 } from 'reanimated-color-picker';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export const generateEmptyGrid = (length: number) => {
   const emptyArray: TouchedPixels = Array.from({length}, (_, i) => []);
@@ -44,7 +46,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
         {translateX: -screenWidth / 4},
         {translateY: -screenHeight / 8},
       ],
-      backgroundColor: 'white',
+      backgroundColor: 'rgba(252,151,187, 0.8)',
       borderRadius: 10,
       padding: 35,
       alignItems: 'center',
@@ -57,6 +59,28 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
       },
       shadowOpacity: 0.25,
       shadowRadius: 4,
+      elevation: 5,
+    },
+    scrollPicker: {
+      width: screenWidth / 4,
+    },
+    closeButton: {
+      position: 'absolute',
+      bottom: '40%',
+      borderRadius: 20,
+      paddingHorizontal: 40,
+      paddingVertical: 10,
+      alignSelf: 'center',
+      backgroundColor: '#fff',
+
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+
       elevation: 5,
     },
     container: {
@@ -100,10 +124,14 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
       paddingLeft: '2%',
       paddingRight: '2%',
     },
+    text: {
+      color: 'white',
+    },
   });
 
-  const gridSize = 15;
-  const emptyGrid = generateEmptyGrid(gridSize);
+  //const gridSize = 15;
+  const [gridSize, setGridSize] = useState(15);
+  const [emptyGrid, setEmptyGrid] = useState(generateEmptyGrid(gridSize));
   const [touchedPixels, setTouchedPixels] = useState<TouchedPixels>(emptyGrid);
   const [colourPalette, setColourPalette] = useState([
     '#9E4242',
@@ -167,11 +195,42 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.centeredView}>
-        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+      <View>
+        <Modal animationType="fade" transparent={true} visible={modalVisible}>
           <View style={styles.modalView}>
-            <Text>grid size</Text>
+            <Text style={styles.text}>grid size</Text>
+            <ScrollView style={styles.scrollPicker}>
+              <ScrollPicker
+                dataSource={['10', '15', '20', '30']}
+                selectedIndex={1}
+                renderItem={(data, index) => {
+                  return <Text>{data}</Text>;
+                }}
+                onValueChange={(data, selectedIndex) => {
+                  //slightly hacky - could be improved in future
+                  if (gridSize < Number(data)) {
+                    const newEmptyGrid = generateEmptyGrid(data);
+                    setTouchedPixels(newEmptyGrid);
+                    setGridSize(data);
+                  } else if (gridSize > Number(data)) {
+                    setGridSize(data);
+                    const newEmptyGrid = generateEmptyGrid(data);
+                    setTouchedPixels(newEmptyGrid);
+                  }
+                }}
+                wrapperHeight={80}
+                wrapperColor="#FFFFFF"
+                itemHeight={50}
+                highlightColor="#d8d8d8"
+                highlightBorderWidth={2}
+              />
+            </ScrollView>
           </View>
+          <Pressable
+            style={styles.closeButton}
+            onPress={() => setModalVisible(false)}>
+            <Text style={{color: '#707070', fontWeight: 'bold'}}>close</Text>
+          </Pressable>
         </Modal>
       </View>
       <DrawingPanel

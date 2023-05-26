@@ -44,6 +44,7 @@ export default function HomeScreen() {
           <Post
             username={item.username}
             title={item.title}
+            gridSize={item.gridSize}
             likes={numberFormat(parseInt(item.likes))}
             comments={numberFormat(parseInt(item.comments))}
             touchedPixels={item.touchedPixels}
