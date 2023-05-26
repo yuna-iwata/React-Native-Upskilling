@@ -6,6 +6,8 @@ import {
   StyleSheet,
   Dimensions,
   FlatList,
+  TouchableWithoutFeedback,
+  Pressable,
 } from 'react-native';
 import PixelBg from '../../data/pixelbg.png';
 import ProfilePic from '../../data/profilepic.png';
@@ -16,7 +18,7 @@ import StaticPixelArt from '../../components/StaticPixelArt';
 import {ProfileStackProps} from './ProfileStackNav';
 import {usePostContext} from '../../contexts/PostContext';
 
-export default function ProfileScreen({route}: ProfileStackProps) {
+export default function ProfileScreen({navigation, route}: ProfileStackProps) {
   const {touchedPixels, newArtGridSize, postTitle} = route.params;
   const {usersPixelArt, setUsersPixelArt} = usePostContext();
 
@@ -137,13 +139,20 @@ export default function ProfileScreen({route}: ProfileStackProps) {
           data={usersPixelArt}
           numColumns={3}
           renderItem={({item}) => (
-            <View style={{width: gridWidth, height: gridWidth}}>
+            <Pressable
+              style={{width: gridWidth, height: gridWidth}}
+              onPress={() => {
+                navigation.navigate('Post', {
+                  gridSize: item.gridSize,
+                  touchedPixels: item.touchedPixels,
+                });
+              }}>
               <StaticPixelArt
                 gridSize={item.gridSize}
                 gridWidth={gridWidth}
                 touchedPixels={item.touchedPixels}
               />
-            </View>
+            </Pressable>
           )}
         />
       </View>
