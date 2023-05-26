@@ -166,10 +166,16 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     Alert.alert('', 'Are you sure you want to clear your artwork?', [
       {
         text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
+        onPress: () => console.log('Cancel Pressed', emptyGrid),
         style: 'cancel',
       },
-      {text: 'Yes', onPress: () => setTouchedPixels(emptyGrid)},
+      {
+        text: 'Yes',
+        onPress: () => {
+          const clearGrid = generateEmptyGrid(gridSize);
+          setTouchedPixels(clearGrid);
+        },
+      },
     ]);
 
   const gridHandler = () => {
