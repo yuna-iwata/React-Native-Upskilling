@@ -47,8 +47,9 @@ export default function PostPixelArt({route, navigation}: PostPixelArtProps) {
 
   const handleNavigate = () => {
     navigation.navigate('Create');
-    const emptyGrid = generateEmptyGrid(15);
+    const emptyGrid = generateEmptyGrid(gridSize);
     setTouchedPixels(emptyGrid);
+    console.log(gridSize);
     navigation.navigate('ProfileStack', {
       screen: 'Profile',
       params: {

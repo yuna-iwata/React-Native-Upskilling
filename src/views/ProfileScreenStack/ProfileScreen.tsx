@@ -74,7 +74,6 @@ export default function ProfileScreen({route}: ProfileStackProps) {
   });
 
   const gridWidth = Dimensions.get('window').width / 3; //change this to a relative value not abs
-  const gridSize = 15;
 
   useEffect(() => {
     if (postTitle) {
@@ -83,11 +82,11 @@ export default function ProfileScreen({route}: ProfileStackProps) {
         username: 'ghost',
         title: postTitle,
         likes: '0',
+        gridSize: newArtGridSize,
         comments: '0',
         touchedPixels: touchedPixels,
       };
       const newUsersArt = [...usersPixelArt];
-      console.log(newUsersArt);
       newUsersArt.push(formatNewArt);
       setUsersPixelArt(newUsersArt);
     }
@@ -140,7 +139,7 @@ export default function ProfileScreen({route}: ProfileStackProps) {
           renderItem={({item}) => (
             <View style={{width: gridWidth, height: gridWidth}}>
               <StaticPixelArt
-                gridSize={gridSize}
+                gridSize={item.gridSize}
                 gridWidth={gridWidth}
                 touchedPixels={item.touchedPixels}
               />
