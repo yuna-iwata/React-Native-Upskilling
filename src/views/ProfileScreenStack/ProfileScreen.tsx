@@ -6,6 +6,8 @@ import {
   StyleSheet,
   Dimensions,
   FlatList,
+  TouchableWithoutFeedback,
+  Pressable,
 } from 'react-native';
 import PixelBg from '../../data/pixelbg.png';
 import ProfilePic from '../../data/profilepic.png';
@@ -16,7 +18,7 @@ import StaticPixelArt from '../../components/StaticPixelArt';
 import {ProfileStackProps} from './ProfileStackNav';
 import {usePostContext} from '../../contexts/PostContext';
 
-export default function ProfileScreen({route}: ProfileStackProps) {
+export default function ProfileScreen({navigation, route}: ProfileStackProps) {
   const {touchedPixels, newArtGridSize, postTitle} = route.params;
   const {usersPixelArt, setUsersPixelArt} = usePostContext();
 
@@ -95,6 +97,9 @@ export default function ProfileScreen({route}: ProfileStackProps) {
   const UsersData = UserData.filter(item => {
     return item.username === 'ghost';
   })[0];
+  const FilteredUsersPixelArt = usersPixelArt.filter(item => {
+    return item.username === 'ghost';
+  });
 
   return (
     <View style={styles.container}>
@@ -134,16 +139,26 @@ export default function ProfileScreen({route}: ProfileStackProps) {
       </View>
       <View style={styles.postContainer}>
         <FlatList
-          data={usersPixelArt}
+          data={FilteredUsersPixelArt}
           numColumns={3}
           renderItem={({item}) => (
-            <View style={{width: gridWidth, height: gridWidth}}>
+            <Pressable
+              style={{width: gridWidth, height: gridWidth}}
+              onPress={() => {
+                navigation.navigate('Post', {
+                  gridSize: item.gridSize,
+                  touchedPixels: item.touchedPixels,
+                  title: item.title,
+                  likes: item.likes,
+                  comments: item.comments,
+                });
+              }}>
               <StaticPixelArt
                 gridSize={item.gridSize}
                 gridWidth={gridWidth}
                 touchedPixels={item.touchedPixels}
               />
-            </View>
+            </Pressable>
           )}
         />
       </View>

@@ -12,14 +12,21 @@ export type ProfileStackParamList = {
     newArtGridSize: number | null;
     postTitle: string | null;
   };
-  Post: undefined;
+  Post: {
+    gridSize: number;
+    touchedPixels: TouchedPixels;
+    title: string;
+    likes: string;
+    comments: string;
+  };
 };
 
 export type ProfileStackProps = StackScreenProps<
   ProfileStackParamList,
-  'Profile',
-  'Post'
+  'Profile'
 >;
+
+export type PostStackProps = StackScreenProps<ProfileStackParamList, 'Post'>;
 
 const Stack = createStackNavigator<ProfileStackParamList>();
 
