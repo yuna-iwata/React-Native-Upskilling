@@ -3,6 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Image, Pressable} from 'react-native';
 
 import HomeScreen from '../views/HomeScreenStack/HomeScreen';
+import HomeStackNav from '../views/HomeScreenStack/HomeStackNav';
 import ProfilePic from '../data/profilepic.png';
 import Feather from 'react-native-vector-icons/Feather';
 import Octicons from 'react-native-vector-icons/Octicons';
@@ -23,7 +24,7 @@ export default function TabNavigator({focused}) {
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
 
-          if (route.name === 'Home') {
+          if (route.name === 'HomeStack') {
             iconName = focused ? 'ios-home' : 'home-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           } else if (route.name === 'CreateStack') {
@@ -48,8 +49,8 @@ export default function TabNavigator({focused}) {
         tabBarInactiveTintColor: 'gray',
       })}>
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="HomeStack"
+        component={HomeStackNav}
         options={{
           headerStyle: {
             backgroundColor: 'black',
