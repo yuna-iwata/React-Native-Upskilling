@@ -97,6 +97,9 @@ export default function ProfileScreen({navigation, route}: ProfileStackProps) {
   const UsersData = UserData.filter(item => {
     return item.username === 'ghost';
   })[0];
+  const FilteredUsersPixelArt = usersPixelArt.filter(item => {
+    return item.username === 'ghost';
+  });
 
   return (
     <View style={styles.container}>
@@ -136,7 +139,7 @@ export default function ProfileScreen({navigation, route}: ProfileStackProps) {
       </View>
       <View style={styles.postContainer}>
         <FlatList
-          data={usersPixelArt}
+          data={FilteredUsersPixelArt}
           numColumns={3}
           renderItem={({item}) => (
             <Pressable
