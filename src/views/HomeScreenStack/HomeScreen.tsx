@@ -43,7 +43,7 @@ export default function HomeScreen({navigation}: HomeStackProps) {
         renderItem={({item}) => (
           <Pressable
             onPress={() => {
-              navigation.navigate('ViewPost', {
+              navigation.navigate('Post', {
                 gridSize: item.gridSize,
                 touchedPixels: item.touchedPixels,
                 title: item.title,

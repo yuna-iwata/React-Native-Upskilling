@@ -55,6 +55,7 @@ export default function TabNavigator({focused}) {
           headerStyle: {
             backgroundColor: 'black',
           },
+          headerShown: false,
           headerTintColor: 'white',
           tabBarShowLabel: false,
           tabBarStyle: {backgroundColor: 'black'},

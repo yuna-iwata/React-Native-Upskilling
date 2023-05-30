@@ -1,13 +1,12 @@
 import {createStackNavigator, StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
-import {Button} from 'react-native';
-import ViewPost from './ViewPost';
+import HomePost from './HomePost';
 import HomeScreen from './HomeScreen';
 import {TouchedPixels} from '../../types';
 
 export type HomeStackParamList = {
   Home: undefined;
-  ViewPost: {
+  Post: {
     gridSize: number;
     touchedPixels: TouchedPixels;
     title: string;
@@ -18,7 +17,7 @@ export type HomeStackParamList = {
 
 export type HomeStackProps = StackScreenProps<HomeStackParamList, 'Home'>;
 
-export type PostStackProps = StackScreenProps<HomeStackParamList, 'ViewPost'>;
+export type PostStackProps = StackScreenProps<HomeStackParamList, 'Post'>;
 
 const Stack = createStackNavigator<HomeStackParamList>();
 
@@ -37,8 +36,8 @@ export default function HomeStackNav({navigation}: HomeStackProps) {
         }}
       />
       <Stack.Screen
-        name="ViewPost"
-        component={ViewPost}
+        name="Post"
+        component={HomePost}
         options={{
           headerStyle: {
             backgroundColor: 'black',
