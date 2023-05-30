@@ -15,6 +15,9 @@ export type ProfileStackParamList = {
   Post: {
     gridSize: number;
     touchedPixels: TouchedPixels;
+    title: string;
+    likes: string;
+    comments: string;
   };
 };
 

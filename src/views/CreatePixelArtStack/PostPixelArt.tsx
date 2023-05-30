@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, TextInput, StyleSheet, Button} from 'react-native';
+import {View, TextInput, StyleSheet, Button, Keyboard} from 'react-native';
 import StaticPixelArt from '../../components/StaticPixelArt';
 import {PostPixelArtProps} from './CreatePixelArtStackNav';
 import {generateEmptyGrid} from './CreatePixelArt';
@@ -67,7 +67,8 @@ export default function PostPixelArt({route, navigation}: PostPixelArtProps) {
             style={styles.input}
             placeholder="give ur pixel art a name..."
             value={postTitle}
-            onChangeText={setPostTitle}></TextInput>
+            onChangeText={setPostTitle}
+          />
         </View>
         <View
           style={{

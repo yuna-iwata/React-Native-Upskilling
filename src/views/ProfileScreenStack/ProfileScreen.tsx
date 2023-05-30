@@ -145,6 +145,9 @@ export default function ProfileScreen({navigation, route}: ProfileStackProps) {
                 navigation.navigate('Post', {
                   gridSize: item.gridSize,
                   touchedPixels: item.touchedPixels,
+                  title: item.title,
+                  likes: item.likes,
+                  comments: item.comments,
                 });
               }}>
               <StaticPixelArt
