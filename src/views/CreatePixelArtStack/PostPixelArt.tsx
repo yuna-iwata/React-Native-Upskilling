@@ -7,16 +7,18 @@ import {
   Pressable,
   Text,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import StaticPixelArt from '../../components/StaticPixelArt';
 import {PostPixelArtProps} from './CreatePixelArtStackNav';
 import {generateEmptyGrid} from './CreatePixelArt';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const gridWidth = 100; //change this to a relative value not abs
+const gridWidth = 90; //change this to a relative value not abs
 
 export default function PostPixelArt({route, navigation}: PostPixelArtProps) {
   const [postTitle, setPostTitle] = useState('');
+  const screenWidth = Dimensions.get('window').width;
   const {touchedPixels, gridSize, setTouchedPixels} = route.params;
   const styles = StyleSheet.create({
     container: {
@@ -34,6 +36,7 @@ export default function PostPixelArt({route, navigation}: PostPixelArtProps) {
     },
     textContainer: {
       height: gridWidth,
+      justifyContent: 'flex-start',
     },
     tagsContainer: {
       height: '10%',
@@ -43,6 +46,10 @@ export default function PostPixelArt({route, navigation}: PostPixelArtProps) {
     placeholderContainer: {
       height: '57%',
     },
+    input: {
+      color: 'white',
+      width: (screenWidth * 2) / 4,
+    },
     text: {
       color: 'white',
     },
@@ -50,13 +57,6 @@ export default function PostPixelArt({route, navigation}: PostPixelArtProps) {
       color: 'white',
       fontWeight: 'bold',
       fontSize: 15,
-    },
-    input: {
-      color: 'white',
-      height: 40,
-      margin: 12,
-      width: 200,
-      padding: 10,
     },
     buttonContainer: {
       height: '13%',
@@ -99,6 +99,7 @@ export default function PostPixelArt({route, navigation}: PostPixelArtProps) {
           <TextInput
             style={styles.input}
             placeholder="give ur pixel art a name..."
+            placeholderTextColor="#fff"
             value={postTitle}
             onChangeText={setPostTitle}
           />
@@ -117,7 +118,9 @@ export default function PostPixelArt({route, navigation}: PostPixelArtProps) {
         </View>
       </View>
       <View style={styles.tagsContainer}>
-        <Text>tags</Text>
+        <Text style={[styles.text, {marginLeft: '5%', marginTop: '2%'}]}>
+          tags
+        </Text>
       </View>
       <View style={styles.placeholderContainer}></View>
       <View style={styles.buttonContainer}>
