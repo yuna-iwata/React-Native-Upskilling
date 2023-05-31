@@ -225,7 +225,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
                   }
                   setScrollPickerIndex(selectedIndex);
                 }}
-                wrapperHeight={80}
+                wrapperHeight={50}
                 wrapperColor="#FFFFFF"
                 itemHeight={50}
                 highlightColor="#d8d8d8"

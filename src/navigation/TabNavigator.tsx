@@ -1,23 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Image, Pressable} from 'react-native';
-
-import HomeScreen from '../views/HomeScreenStack/HomeScreen';
+import {Image} from 'react-native';
 import HomeStackNav from '../views/HomeScreenStack/HomeStackNav';
 import ProfilePic from '../data/profilepic.png';
-import Feather from 'react-native-vector-icons/Feather';
-import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CreatePixelArtStackNav from '../views/CreatePixelArtStack/CreatePixelArtStackNav';
 import ProfileStackNav from '../views/ProfileScreenStack/ProfileStackNav';
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigator({focused}) {
+export default function TabNavigator() {
   const profilePicWidth = 30;
-  const [homeSelected, setHomeSelected] = useState(true);
-  const [createSelected, setCreateSelected] = useState(false);
-  const [profileSelected, setProfileSelected] = useState(false);
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({

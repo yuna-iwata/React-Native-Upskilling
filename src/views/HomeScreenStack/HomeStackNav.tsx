@@ -21,7 +21,7 @@ export type PostStackProps = StackScreenProps<HomeStackParamList, 'Post'>;
 
 const Stack = createStackNavigator<HomeStackParamList>();
 
-export default function HomeStackNav({navigation}: HomeStackProps) {
+export default function HomeStackNav() {
   return (
     <Stack.Navigator>
       <Stack.Screen

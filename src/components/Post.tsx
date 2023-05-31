@@ -1,6 +1,9 @@
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {TouchedPixels} from '../types';
 import StaticPixelArt from './StaticPixelArt';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,9 +23,19 @@ const styles = StyleSheet.create({
   boldText: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: 10,
   },
   normalText: {
     color: 'white',
+    fontSize: 10,
+  },
+  iconContainer: {
+    height: '13%',
+    display: 'flex',
+    flexDirection: 'row',
+    columnGap: 10, //change from hardcoded
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
 });
 
@@ -43,6 +56,7 @@ export default function Post({
   touchedPixels,
   gridSize,
 }: PostProps) {
+  const [likeSelected, setLikeSelected] = useState(false);
   return (
     <View style={styles.container}>
       <View style={styles.imageWrapper}>
@@ -52,16 +66,28 @@ export default function Post({
           touchedPixels={touchedPixels}
         />
       </View>
-      <Text style={[styles.boldText]}>{username}</Text>
-      <Text style={[styles.normalText, {fontSize: 12, marginBottom: '2%'}]}>
-        {title}
-      </Text>
+      <Text style={[styles.boldText, {fontSize: 14}]}>{username}</Text>
+      <Text style={[styles.normalText, {marginBottom: '2%'}]}>{title}</Text>
       <Text>
-        <Text style={[styles.boldText, {fontSize: 12}]}>{likes}</Text>
-        <Text style={[styles.normalText, {fontSize: 12}]}> likes</Text>
-        <Text style={[styles.boldText, {fontSize: 12}]}> {comments}</Text>
-        <Text style={[styles.normalText, {fontSize: 12}]}> comments</Text>
+        <Text style={styles.boldText}>{likes}</Text>
+        <Text style={styles.normalText}> likes</Text>
+        <Text style={styles.boldText}> {comments}</Text>
+        <Text style={styles.normalText}> comments</Text>
       </Text>
+      <View style={styles.iconContainer}>
+        <TouchableOpacity onPress={() => setLikeSelected(!likeSelected)}>
+          <FontAwesome
+            name={likeSelected ? 'heart' : 'heart-o'}
+            style={{color: 'white', fontSize: 20}}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <MaterialCommunityIcons
+            name="comment-outline"
+            style={{color: 'white', fontSize: 20}}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

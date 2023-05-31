@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Dimensions,
   FlatList,
-  TouchableWithoutFeedback,
   Pressable,
 } from 'react-native';
 import PixelBg from '../../data/pixelbg.png';
