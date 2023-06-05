@@ -16,12 +16,14 @@ import {TouchedPixels} from '../types';
 export default function ViewPost({
   touchedPixels,
   gridSize,
+  username,
   title,
   likes,
   comments,
 }: {
   touchedPixels: TouchedPixels;
   gridSize: number;
+  username: string;
   title: string;
   likes: string;
   comments: string;
@@ -72,7 +74,7 @@ export default function ViewPost({
     <View>
       <View style={styles.userInfoBox}>
         <Image style={styles.profilePicture} source={ProfilePic} />
-        <Text style={styles.boldText}>ghost</Text>
+        <Text style={styles.boldText}>{username}</Text>
       </View>
       <View style={{width: gridWidth, height: gridWidth}}>
         <StaticPixelArt

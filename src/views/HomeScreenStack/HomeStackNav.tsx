@@ -9,6 +9,7 @@ export type HomeStackParamList = {
   Post: {
     gridSize: number;
     touchedPixels: TouchedPixels;
+    username: string;
     title: string;
     likes: string;
     comments: string;

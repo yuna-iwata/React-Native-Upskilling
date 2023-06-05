@@ -11,12 +11,14 @@ export default function HomePost({route}: PostStackProps) {
       justifyContent: 'flex-start',
     },
   });
-  const {touchedPixels, gridSize, title, likes, comments} = route.params;
+  const {touchedPixels, gridSize, username, title, likes, comments} =
+    route.params;
   return (
     <View style={styles.container}>
       <ViewPost
         gridSize={gridSize}
         touchedPixels={touchedPixels}
+        username={username}
         title={title}
         likes={likes}
         comments={comments}

@@ -46,6 +46,7 @@ export default function HomeScreen({navigation}: HomeStackProps) {
               navigation.navigate('Post', {
                 gridSize: item.gridSize,
                 touchedPixels: item.touchedPixels,
+                username: item.username,
                 title: item.title,
                 likes: item.likes,
                 comments: item.comments,
