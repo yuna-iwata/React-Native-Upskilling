@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {PostStackProps} from './ProfileStackNav';
+import {PostStackProps} from './HomeStackNav';
 import ViewPost from '../../components/ViewPost';
 
-export default function ProfilePost({route}: PostStackProps) {
+export default function HomePost({route}: PostStackProps) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,

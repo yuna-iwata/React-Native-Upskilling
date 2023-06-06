@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, FlatList, StyleSheet} from 'react-native';
+import {View, FlatList, StyleSheet, Pressable} from 'react-native';
 import Post from '../../components/Post';
-import feedData from '../../data/feed.json';
 import {usePostContext} from '../../contexts/PostContext';
+import {HomeStackProps} from './HomeStackNav';
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}: HomeStackProps) {
   const {usersPixelArt} = usePostContext();
   const styles = StyleSheet.create({
     container: {
@@ -41,14 +41,26 @@ export default function HomeScreen() {
         data={usersPixelArt}
         numColumns={2}
         renderItem={({item}) => (
-          <Post
-            username={item.username}
-            title={item.title}
-            gridSize={item.gridSize}
-            likes={numberFormat(parseInt(item.likes))}
-            comments={numberFormat(parseInt(item.comments))}
-            touchedPixels={item.touchedPixels}
-          />
+          <Pressable
+            onPress={() => {
+              navigation.navigate('Post', {
+                gridSize: item.gridSize,
+                touchedPixels: item.touchedPixels,
+                username: item.username,
+                title: item.title,
+                likes: item.likes,
+                comments: item.comments,
+              });
+            }}>
+            <Post
+              username={item.username}
+              title={item.title}
+              gridSize={item.gridSize}
+              likes={numberFormat(parseInt(item.likes))}
+              comments={numberFormat(parseInt(item.comments))}
+              touchedPixels={item.touchedPixels}
+            />
+          </Pressable>
         )}
       />
     </View>

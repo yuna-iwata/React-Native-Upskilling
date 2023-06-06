@@ -1,11 +1,9 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Image} from 'react-native';
-
-import HomeScreen from '../views/HomeScreenStack/HomeScreen';
+import HomeStackNav from '../views/HomeScreenStack/HomeStackNav';
 import ProfilePic from '../data/profilepic.png';
-import Feather from 'react-native-vector-icons/Feather';
-import Octicons from 'react-native-vector-icons/Octicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import CreatePixelArtStackNav from '../views/CreatePixelArtStack/CreatePixelArtStackNav';
 import ProfileStackNav from '../views/ProfileScreenStack/ProfileStackNav';
 
@@ -14,20 +12,46 @@ const Tab = createBottomTabNavigator();
 export default function TabNavigator() {
   const profilePicWidth = 30;
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+
+          if (route.name === 'HomeStack') {
+            iconName = focused ? 'ios-home' : 'home-outline';
+            return <Ionicons name={iconName} size={size} color={color} />;
+          } else if (route.name === 'CreateStack') {
+            iconName = focused ? 'ios-create' : 'ios-create-outline';
+            return <Ionicons name={iconName} size={size} color={color} />;
+          } else if (route.name === 'ProfileStack') {
+            return (
+              <Image
+                source={ProfilePic}
+                style={{
+                  width: profilePicWidth,
+                  height: profilePicWidth,
+                  borderRadius: profilePicWidth / 2,
+                  borderWidth: 1,
+                  borderColor: focused ? 'white' : 'black',
+                }}
+              />
+            );
+          }
+        },
+        tabBarActiveTintColor: '#4F46E5',
+        tabBarInactiveTintColor: 'gray',
+      })}>
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="HomeStack"
+        component={HomeStackNav}
         options={{
           headerStyle: {
             backgroundColor: 'black',
           },
+          headerShown: false,
           headerTintColor: 'white',
           tabBarShowLabel: false,
           tabBarStyle: {backgroundColor: 'black'},
-          tabBarIcon: () => (
-            <Feather name="home" style={{color: 'white', fontSize: 30}} />
-          ),
         }}
       />
       <Tab.Screen
@@ -41,12 +65,6 @@ export default function TabNavigator() {
           headerTintColor: 'white',
           tabBarShowLabel: false,
           tabBarStyle: {backgroundColor: 'black'},
-          tabBarIcon: () => (
-            <Octicons
-              name="diff-added"
-              style={{color: 'white', fontSize: 30}}
-            />
-          ),
         }}
       />
       <Tab.Screen
@@ -60,18 +78,6 @@ export default function TabNavigator() {
           headerTintColor: 'white',
           tabBarShowLabel: false,
           tabBarStyle: {backgroundColor: 'black'},
-          tabBarIcon: () => (
-            <Image
-              source={ProfilePic}
-              style={{
-                width: profilePicWidth,
-                height: profilePicWidth,
-                borderRadius: profilePicWidth / 2,
-                borderWidth: 1,
-                borderColor: 'white',
-              }}
-            />
-          ),
         }}
       />
     </Tab.Navigator>

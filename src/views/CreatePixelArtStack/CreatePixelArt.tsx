@@ -14,14 +14,9 @@ import DrawingPanel from '../../components/DrawingPanel';
 import {TouchedPixels} from '../../types';
 import {CreatePixelArtProps} from './CreatePixelArtStackNav';
 import ColourBox from '../../components/ColourBox';
-import ScrollPicker from 'react-native-wheel-scrollview-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import ColorPicker, {
-  Panel1,
-  HueSlider,
-  Swatches,
-} from 'reanimated-color-picker';
-import {ScrollView} from 'react-native-gesture-handler';
+import ColorPicker, {Panel1, Swatches} from 'reanimated-color-picker';
+import {Picker} from '@react-native-picker/picker';
 
 export const generateEmptyGrid = (length: number) => {
   const emptyArray: TouchedPixels = Array.from({length}, (_, i) => []);
@@ -48,7 +43,7 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
       ],
       backgroundColor: 'rgba(252,151,187, 0.8)',
       borderRadius: 10,
-      padding: 35,
+      padding: 25,
       alignItems: 'center',
       shadowColor: '#000',
       width: screenWidth / 2,
@@ -60,9 +55,6 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
       shadowOpacity: 0.25,
       shadowRadius: 4,
       elevation: 5,
-    },
-    scrollPicker: {
-      width: screenWidth / 4,
     },
     closeButton: {
       position: 'absolute',
@@ -127,6 +119,9 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
     text: {
       color: 'white',
     },
+    largeText: {
+      fontSize: 17,
+    },
   });
 
   const [gridSize, setGridSize] = useState(15);
@@ -145,7 +140,6 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
   const [rubberSelected, setRubberSelected] = useState(false);
   const [pencilSelected, setPencilSelected] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  const [scrollPickerIndex, setScrollPickerIndex] = useState(1);
 
   const rubberHandler = () => {
     setRubberSelected(!rubberSelected);
@@ -204,13 +198,18 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
       <View>
         <Modal animationType="fade" transparent={true} visible={modalVisible}>
           <View style={styles.modalView}>
-            <Text style={styles.text}>grid size</Text>
-            <ScrollView style={styles.scrollPicker}>
-              <ScrollPicker
-                dataSource={['10', '15', '20', '30']}
-                selectedIndex={scrollPickerIndex}
-                renderItem={(data, index) => {
-                  return <Text>{data}</Text>;
+            <Text style={[styles.text, styles.largeText]}>grid size</Text>
+            <View
+              style={{
+                height: 80,
+                justifyContent: 'center',
+                marginTop: 5,
+              }}>
+              <Picker
+                selectedValue={gridSize}
+                style={{
+                  width: 150,
+                  backgroundColor: 'rgba(252,151,187, 0)',
                 }}
                 onValueChange={(data, selectedIndex) => {
                   //slightly hacky - could be improved in future
@@ -223,15 +222,13 @@ export default function CreatePixelArt({navigation}: CreatePixelArtProps) {
                     const newEmptyGrid = generateEmptyGrid(data);
                     setTouchedPixels(newEmptyGrid);
                   }
-                  setScrollPickerIndex(selectedIndex);
-                }}
-                wrapperHeight={80}
-                wrapperColor="#FFFFFF"
-                itemHeight={50}
-                highlightColor="#d8d8d8"
-                highlightBorderWidth={2}
-              />
-            </ScrollView>
+                }}>
+                <Picker.Item label="10" value={10} color="white" />
+                <Picker.Item label="15" value={15} color="white" />
+                <Picker.Item label="20" value={20} color="white" />
+                <Picker.Item label="30" value={30} color="white" />
+              </Picker>
+            </View>
           </View>
           <Pressable
             style={styles.closeButton}

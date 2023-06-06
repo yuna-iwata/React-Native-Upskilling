@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Dimensions,
   FlatList,
-  TouchableWithoutFeedback,
   Pressable,
 } from 'react-native';
 import PixelBg from '../../data/pixelbg.png';
@@ -148,6 +147,7 @@ export default function ProfileScreen({navigation, route}: ProfileStackProps) {
                 navigation.navigate('Post', {
                   gridSize: item.gridSize,
                   touchedPixels: item.touchedPixels,
+                  username: item.username,
                   title: item.title,
                   likes: item.likes,
                   comments: item.comments,
