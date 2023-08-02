@@ -13,9 +13,9 @@ import StaticPixelArt from '../../components/StaticPixelArt';
 import {PostPixelArtProps} from './CreatePixelArtStackNav';
 import {generateEmptyGrid} from './CreatePixelArt';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {LogBox} from 'react-native';
-LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
-LogBox.ignoreAllLogs(); //Ignore all log notifications
+// import {LogBox} from 'react-native';
+// LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+// LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 const gridWidth = 90; //change this to a relative value not abs
 

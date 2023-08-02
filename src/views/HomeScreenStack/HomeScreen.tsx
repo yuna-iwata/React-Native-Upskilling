@@ -1,10 +1,22 @@
-import React from 'react';
-import {View, FlatList, StyleSheet, Pressable} from 'react-native';
+import React, {useState, useRef} from 'react';
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import Post from '../../components/Post';
 import {usePostContext} from '../../contexts/PostContext';
 import {HomeStackProps} from './HomeStackNav';
+import {BleManager} from 'react-native-ble-plx';
+
+const bleManager = new BleManager();
 
 export default function HomeScreen({navigation}: HomeStackProps) {
+  const [connectionStatus, setConnectionStatus] = useState('Searching ...');
+  const [allDevices, setAllDevices] = useState([]);
   const {usersPixelArt} = usePostContext();
   const styles = StyleSheet.create({
     container: {
@@ -13,6 +25,20 @@ export default function HomeScreen({navigation}: HomeStackProps) {
       backgroundColor: 'black',
       alignItems: 'center',
       justifyContent: 'space-between',
+    },
+    button: {
+      backgroundColor: 'white',
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 5,
+      borderWidth: 1,
+      borderColor: 'black',
+    },
+    buttonText: {
+      color: 'black',
+      fontSize: 16,
+      fontWeight: 'bold',
+      textAlign: 'center',
     },
   });
 
@@ -35,6 +61,27 @@ export default function HomeScreen({navigation}: HomeStackProps) {
     // format number and add suffix
     return scaled.toFixed(1) + suffix;
   }
+
+  const deviceRef = useRef(null);
+
+  const searchAndConnectToDevice = () => {
+    bleManager.startDeviceScan(null, null, (error, device) => {
+      if (error) {
+        //console.error(error);
+        setConnectionStatus('Error searching for devices');
+        return;
+      }
+      if (device) {
+        setConnectionStatus('device found!');
+        console.log(device.name);
+      }
+    });
+  };
+
+  const onPressBluetooth = () => {
+    searchAndConnectToDevice();
+  };
+
   return (
     <View style={[styles.container]}>
       <FlatList
@@ -63,6 +110,10 @@ export default function HomeScreen({navigation}: HomeStackProps) {
           </Pressable>
         )}
       />
+      <Text style={{color: 'white'}}>{connectionStatus}</Text>
+      <TouchableOpacity style={styles.button} onPress={onPressBluetooth}>
+        <Text style={styles.buttonText}>bluetooth</Text>
+      </TouchableOpacity>
     </View>
   );
 }
